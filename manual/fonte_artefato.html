@@ -1,0 +1,1750 @@
+<meta charset="utf-8">
+<title>MirandasTech · Git e GitHub para pesquisadores</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+
+:root{
+  --paper:#F1F4F7; --surface:#FFFFFF; --surface-2:#F8FAFB;
+  --ink:#101720; --ink-2:#4A5866; --ink-3:#75828E;
+  --rule:#D3DAE1; --rule-2:#E5EAEF;
+  --blueprint:#17436B; --blueprint-2:#2C6396; --blueprint-soft:#E4EDF5;
+  --signal:#C4530E; --signal-soft:#FBEADD;
+  --go:#186B50; --go-soft:#E0EFE9;
+  --stop:#A0231C; --stop-soft:#F9E5E3;
+  --amber:#8A6000; --amber-soft:#F9EFD6;
+  --shadow:0 1px 2px rgba(16,23,32,.06),0 8px 24px -12px rgba(16,23,32,.18);
+  --serif:'Spectral',Georgia,'Times New Roman',serif;
+  --cond:'IBM Plex Sans Condensed','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1218; --surface:#131B23; --surface-2:#182129;
+    --ink:#E3E9EF; --ink-2:#94A3B1; --ink-3:#71808E;
+    --rule:#26313C; --rule-2:#1E2831;
+    --blueprint:#7DB2DF; --blueprint-2:#A3CAEB; --blueprint-soft:#15283A;
+    --signal:#EE8A46; --signal-soft:#33200F;
+    --go:#54C398; --go-soft:#0F2620;
+    --stop:#EC7B72; --stop-soft:#2D1614;
+    --amber:#DCAC3D; --amber-soft:#2A2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1218; --surface:#131B23; --surface-2:#182129;
+  --ink:#E3E9EF; --ink-2:#94A3B1; --ink-3:#71808E;
+  --rule:#26313C; --rule-2:#1E2831;
+  --blueprint:#7DB2DF; --blueprint-2:#A3CAEB; --blueprint-soft:#15283A;
+  --signal:#EE8A46; --signal-soft:#33200F;
+  --go:#54C398; --go-soft:#0F2620;
+  --stop:#EC7B72; --stop-soft:#2D1614;
+  --amber:#DCAC3D; --amber-soft:#2A2110;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+:focus-visible{outline:2px solid var(--blueprint-2);outline-offset:3px;border-radius:2px}
+
+/* ---------- sections ---------- */
+.part{padding-top:56px}
+.part-head{display:flex;align-items:baseline;gap:14px;border-top:1px solid var(--rule);padding-top:14px;margin-bottom:8px}
+.part-num{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--signal);font-weight:600}
+.part-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+h2{font-family:var(--cond);font-weight:700;font-size:clamp(27px,3.6vw,38px);line-height:1.12;letter-spacing:-.012em;margin:6px 0 0;text-wrap:balance;max-width:22ch}
+h3{font-family:var(--cond);font-weight:600;font-size:22px;line-height:1.25;margin:40px 0 0;color:var(--ink);text-wrap:balance}
+h4{font-family:var(--cond);font-weight:600;font-size:17px;line-height:1.3;margin:26px 0 0;color:var(--blueprint);letter-spacing:.01em}
+p,ul,ol{max-width:68ch}
+p{margin:14px 0 0}
+ul,ol{margin:14px 0 0;padding-left:22px}
+li{margin:7px 0}
+li::marker{color:var(--blueprint)}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic}
+a{color:var(--blueprint);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+code{font-family:var(--mono);font-size:.855em;background:var(--surface-2);border:1px solid var(--rule-2);padding:1px 5px;border-radius:3px;color:var(--ink)}
+.dek{font-size:18px;color:var(--ink-2);max-width:64ch;margin:16px 0 0;line-height:1.6}
+
+/* ---------- blocks ---------- */
+.rule-box,.trap,.case,.note{margin:24px 0 0;padding:16px 20px;border-radius:4px;max-width:74ch;border-left:3px solid}
+.rule-box{background:var(--blueprint-soft);border-left-color:var(--blueprint)}
+.trap{background:var(--signal-soft);border-left-color:var(--signal)}
+.case{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--go)}
+.note{background:var(--surface-2);border-left-color:var(--ink-3)}
+.blabel{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;display:block;margin-bottom:7px}
+.rule-box .blabel{color:var(--blueprint)}
+.trap .blabel{color:var(--signal)}
+.case .blabel{color:var(--go)}
+.note .blabel{color:var(--ink-3)}
+.rule-box p:first-of-type,.trap p:first-of-type,.case p:first-of-type,.note p:first-of-type{margin-top:0}
+.rule-box p,.trap p,.case p,.rule-box li,.trap li,.case li,.note p,.note li{max-width:none;font-size:16px}
+.case .src{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:10px;display:block;line-height:1.5}
+
+/* ---------- figures ---------- */
+figure{margin:34px 0 0;max-width:none}
+figcaption{font-family:var(--cond);font-size:13.5px;color:var(--ink-2);margin-top:11px;line-height:1.5;max-width:76ch}
+figcaption b{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--signal);font-weight:600;margin-right:7px}
+.frame{border:1px solid var(--rule);background:var(--surface);border-radius:4px;padding:24px;overflow-x:auto}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:26px 0 0;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-family:var(--cond);font-size:14.5px;min-width:520px}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--rule);background:var(--surface-2);vertical-align:bottom}
+td{padding:11px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top;line-height:1.45;color:var(--ink)}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;white-space:nowrap}
+td.mono{font-family:var(--mono);font-size:12.5px}
+.pill{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;font-weight:600;text-transform:uppercase;padding:2.5px 8px;border-radius:20px;white-space:nowrap}
+.p-go{background:var(--go-soft);color:var(--go)}
+.p-amber{background:var(--amber-soft);color:var(--amber)}
+.p-stop{background:var(--stop-soft);color:var(--stop)}
+.p-blue{background:var(--blueprint-soft);color:var(--blueprint)}
+
+/* ---------- terminal ---------- */
+.term{background:#0B1219;border:1px solid #223040;border-radius:5px;overflow:hidden;margin:26px 0 0}
+.term-bar{display:flex;align-items:center;gap:7px;padding:8px 13px;background:#141F2B;border-bottom:1px solid #223040}
+.term-dot{width:9px;height:9px;border-radius:50%;background:#33445A}
+.term-title{font-family:var(--mono);font-size:10.5px;color:#7A8B9C;margin-left:8px;letter-spacing:.05em}
+.term pre{margin:0;padding:15px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:#C9D6E2}
+.term .c-p{color:#5FA8DC}
+.term .c-o{color:#E8A055}
+.term .c-g{color:#5FC79A}
+.term .c-m{color:#71828F}
+.term .c-r{color:#E8776C}
+
+/* ---------- code ---------- */
+.code{background:var(--surface-2);border:1px solid var(--rule);border-radius:4px;margin:24px 0 0;overflow:hidden}
+.code-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);padding:8px 14px;border-bottom:1px solid var(--rule);background:var(--surface)}
+.code pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.66;color:var(--ink)}
+.code .k{color:var(--blueprint);font-weight:500}
+.code .s{color:var(--go)}
+.code .cm{color:var(--ink-3);font-style:italic}
+
+/* ---------- charts ---------- */
+.bars{display:flex;flex-direction:column;gap:11px;margin:0}
+.bar-row{display:grid;grid-template-columns:minmax(96px,152px) minmax(0,1fr) 62px;gap:12px;align-items:center}
+.bar-lab{font-family:var(--cond);font-size:13.5px;color:var(--ink-2);line-height:1.25;text-align:right}
+.bar-track{background:var(--rule-2);border-radius:2px;height:22px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;background:var(--blueprint)}
+.bar-fill.f-signal{background:var(--signal)}
+.bar-fill.f-go{background:var(--go)}
+.bar-fill.f-stop{background:var(--stop)}
+.bar-fill.f-amber{background:var(--amber)}
+.bar-fill.f-mute{background:var(--ink-3)}
+.bar-val{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums;color:var(--ink);text-align:right;font-weight:500}
+.bar-zero{font-family:var(--mono);font-size:11px;color:var(--stop);font-weight:600;position:absolute;left:4px;top:50%;transform:translateY(-50%)}
+@media (max-width:560px){.bar-row{grid-template-columns:minmax(72px,102px) minmax(0,1fr) 52px;gap:8px}.bar-lab{font-size:12px}}
+
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:8px;align-items:center}
+.fstep{border:1px solid var(--rule);background:var(--surface-2);border-radius:4px;padding:12px 18px;text-align:center;width:100%;max-width:640px;position:relative}
+.fstep .fn{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+.fstep .ft{font-family:var(--cond);font-size:13.5px;color:var(--ink-2);margin-top:5px;line-height:1.35}
+.fstep.hl{border-color:var(--signal);background:var(--signal-soft)}
+.fstep.hl .fn{color:var(--signal)}
+.fdrop{font-family:var(--mono);font-size:11.5px;color:var(--stop);text-align:center;line-height:1.4}
+
+/* flow map */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px}
+.node{border:1px solid var(--rule);border-radius:4px;background:var(--surface-2);padding:12px 13px;display:flex;flex-direction:column;gap:6px}
+.node .nn{font-family:var(--mono);font-size:10px;letter-spacing:.11em;color:var(--ink-3);font-weight:600}
+.node .nt{font-family:var(--cond);font-size:15px;font-weight:600;line-height:1.22;color:var(--ink)}
+.node .nd{font-size:13px;color:var(--ink-2);line-height:1.45;font-family:var(--cond)}
+.node .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.node.gate{border-color:var(--stop);background:var(--stop-soft)}
+.node.gate .nn{color:var(--stop)}
+
+/* two-column compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--surface)}
+.compare>div{padding:18px 20px}
+.compare>div:first-child{border-right:1px solid var(--rule)}
+.cmp-h{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.compare ul{margin:0;padding-left:18px;max-width:none}
+.compare li{font-family:var(--cond);font-size:14.5px;line-height:1.45;margin:8px 0;color:var(--ink)}
+@media (max-width:640px){.compare{grid-template-columns:1fr}.compare>div:first-child{border-right:0;border-bottom:1px solid var(--rule)}}
+
+/* ui schematic */
+.ui{border:1px solid var(--rule);border-radius:5px;overflow:hidden;background:var(--surface);font-family:var(--cond)}
+.ui-bar{background:var(--surface-2);border-bottom:1px solid var(--rule);padding:7px 12px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center}
+.ui-body{display:grid;grid-template-columns:170px minmax(0,1fr);min-height:150px}
+.ui-side{border-right:1px solid var(--rule);padding:10px;background:var(--surface-2);font-size:13px;color:var(--ink-2)}
+.ui-side div{padding:3.5px 6px;border-radius:3px;line-height:1.3}
+.ui-side div.sel{background:var(--blueprint-soft);color:var(--blueprint);font-weight:600}
+.ui-main{padding:10px}
+.ui-row{display:grid;grid-template-columns:minmax(0,1fr) 78px 46px;gap:9px;padding:6px 7px;border-bottom:1px solid var(--rule-2);font-size:13px;align-items:center;color:var(--ink)}
+.ui-row.head{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--rule)}
+.ui-row span:nth-child(2),.ui-row span:nth-child(3){font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+.schematic-tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px dashed var(--rule);padding:2px 7px;border-radius:3px}
+@media (max-width:560px){.ui-body{grid-template-columns:1fr}.ui-side{border-right:0;border-bottom:1px solid var(--rule)}}
+
+/* checklist */
+.check{border:1px solid var(--rule);border-radius:4px;background:var(--surface);overflow:hidden}
+.check-item{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--rule-2)}
+.check-item:last-child{border-bottom:0}
+.check-item input{margin:4px 0 0;width:16px;height:16px;accent-color:var(--blueprint);flex:none;cursor:pointer}
+.check-item label{font-family:var(--cond);font-size:14.5px;line-height:1.45;cursor:pointer;color:var(--ink)}
+.check-item label b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:2px}
+.check-item.done label{color:var(--ink-3);text-decoration:line-through}
+.check-foot{padding:10px 16px;background:var(--surface-2);border-top:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--ink-3);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.check-foot button{font-family:var(--mono);font-size:10.5px;background:none;border:1px solid var(--rule);color:var(--ink-2);padding:3px 10px;border-radius:3px;cursor:pointer;letter-spacing:.05em}
+.check-foot button:hover{border-color:var(--blueprint);color:var(--blueprint)}
+
+/* refs */
+.refs{margin:14px 0 0;padding-left:30px;list-style:decimal;max-width:none}
+.refs li{display:list-item;padding:6px 0 6px 4px;border-bottom:1px solid var(--rule-2);margin:0;font-family:var(--cond);font-size:13.5px;line-height:1.4}
+.refs li::marker{font-family:var(--mono);font-size:11px;color:var(--signal);font-weight:600}
+.refs li a{overflow-wrap:anywhere;font-family:var(--mono);font-size:11px;display:inline-block;margin-top:2px;color:var(--ink-3);text-decoration:none}
+.refs li a:hover{color:var(--blueprint);text-decoration:underline}
+.refs .rt{color:var(--ink);font-weight:500}
+
+.colophon{margin-top:70px;padding-top:22px;border-top:3px solid var(--blueprint);font-family:var(--mono);font-size:11.5px;color:var(--ink-3);line-height:1.75}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin:36px 0 0;display:block;font-weight:600}
+
+
+
+/* ================= motor de slides ================= */
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{margin:0}
+.slide{height:100vh;min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-start;padding:26px clamp(64px,6vw,96px) 26px;font-size:15.5px;overflow:hidden;position:relative;border-bottom:1px solid var(--rule-2);background:var(--paper)}
+.slide.alt{background:var(--surface-2)}
+.slide .inner{max-width:none;width:100%;margin:0;max-height:calc(100vh - 52px);overflow:auto;scrollbar-width:thin}
+.slide.fit .inner{overflow:visible}
+.slide h2{max-width:none;font-size:clamp(24px,3.2vw,38px);margin-top:6px}
+.slide .lead{font-size:clamp(15.5px,1.35vw,18px);color:var(--ink-2);max-width:none;margin:10px 0 0;line-height:1.5}
+.slide p,.slide ul,.slide ol,.slide .rule-box,.slide .trap,.slide .case,.slide .note,.slide .more,.slide figcaption,.slide .check,.slide .refs,.slide h2{max-width:none}
+.two{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,2.4vw,34px);align-items:start;margin-top:16px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.two figure,.two .tw,.two .code,.two .term{margin-top:0}
+.kicker-part{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);font-weight:600}
+.kicker-part span{color:var(--ink-3);font-weight:400;margin-left:10px}
+.more{margin-top:16px;max-width:76ch;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+.more summary{cursor:pointer;font-family:var(--cond);font-weight:600;font-size:14px;padding:10px 14px;color:var(--blueprint);list-style:none;display:flex;align-items:center;gap:8px}
+.more summary::before{content:"+";font-family:var(--mono);width:16px;display:inline-block;text-align:center}
+.more[open] summary::before{content:"–"}
+.more>div{padding:0 16px 14px;font-size:15.5px}
+.more>div p,.more>div li{max-width:none;font-size:15.5px}
+.more .tw{margin-top:10px}
+.bul{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:9px}
+.bul li{position:relative;padding-left:24px;font-size:15.5px;line-height:1.5;margin:0}
+.bul li::before{content:"";position:absolute;left:4px;top:9px;width:10px;height:10px;border-radius:2px;background:var(--blueprint)}
+.bul li.warn::before{background:var(--signal)}
+.bul li.stop::before{background:var(--stop)}
+.bul li.go::before{background:var(--go)}
+
+/* capa */
+.slide.cover{justify-content:center;background:var(--paper)}
+.slide.divider{justify-content:center}
+.brand{font-family:var(--cond);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--blueprint);display:inline-flex;align-items:center;gap:10px}
+.brand::before{content:"";width:22px;height:2px;background:var(--signal)}
+.cover h1{font-family:var(--cond);font-weight:700;font-size:clamp(42px,7.2vw,88px);line-height:.98;letter-spacing:-.02em;margin:22px 0 0;text-wrap:balance;max-width:none}
+.cover .lede{font-size:clamp(18px,1.9vw,23px);color:var(--ink-2);max-width:none;margin:22px 0 0;line-height:1.55}
+.cover-meta{margin-top:34px;display:flex;flex-wrap:wrap;gap:24px 40px;font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+.cover-meta b{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px;font-weight:600}
+.cover-meta span{font-family:var(--cond);font-size:15px;color:var(--ink);letter-spacing:0}
+.hint{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:8px}
+.hint::after{content:"↓";animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* separador de parte */
+.slide.divider{justify-content:center;background:var(--blueprint);color:#F1F4F7;border-bottom:0}
+.slide.divider .kicker-part{color:#F4B07A}
+.slide.divider .kicker-part span{color:rgba(241,244,247,.6)}
+.slide.divider h2{color:#FFFFFF;font-size:clamp(40px,6vw,74px);max-width:none}
+.slide.divider p{color:rgba(241,244,247,.82);font-size:clamp(17px,1.7vw,21px);max-width:none}
+.slide.divider .num{font-family:var(--mono);font-size:clamp(90px,16vw,200px);font-weight:600;color:rgba(255,255,255,.08);position:absolute;right:4vw;bottom:-2vw;line-height:1;letter-spacing:-.04em;pointer-events:none}
+
+/* barra fixa, progresso, navegação */
+.topbar{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,3vw,28px);background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);z-index:40}
+.topbar .brand{font-size:12px}
+.topbar .where{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em;display:flex;align-items:center;gap:12px}
+.topbar .where b{color:var(--ink);font-weight:600}
+.prog{position:fixed;top:0;left:0;height:3px;background:var(--signal);width:0;z-index:41;transition:width .25s ease}
+.navbtn{position:fixed;left:clamp(8px,1.2vw,18px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;z-index:40;align-items:center;opacity:.28;transition:opacity .25s ease}
+.navbtn:hover,.navbtn:focus-within{opacity:1}
+@media (hover:none){.navbtn{opacity:.85}}
+.navbtn .cnt{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em;margin-top:2px}
+.navbtn .cnt b{color:var(--ink)}
+.navbtn button,.menubtn{font-family:var(--mono);font-size:13px;width:42px;height:42px;border-radius:4px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--shadow);display:inline-flex;align-items:center;justify-content:center}
+.navbtn button:hover,.menubtn:hover{border-color:var(--blueprint);color:var(--blueprint)}
+.menubtn{font-size:16px}
+.menu{position:fixed;inset:0 auto 0 0;width:min(360px,92vw);background:var(--surface);border-right:1px solid var(--rule);box-shadow:var(--shadow);z-index:45;overflow-y:auto;padding:14px 10px 40px;transform:translateX(-102%);transition:transform .28s ease}
+.menu.open{transform:none}
+.menu .grp{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:14px 10px 4px;border-top:1px solid var(--rule-2);margin-top:6px}
+.menu .grp:first-child{border-top:0;margin-top:0}
+.menu a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink-2);font-family:var(--cond);font-size:14px;padding:6px 10px;border-radius:3px;border-left:2px solid transparent}
+.menu a .n{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);min-width:20px;font-variant-numeric:tabular-nums}
+.menu a:hover{background:var(--blueprint-soft);color:var(--ink)}
+.menu a.on{border-left-color:var(--blueprint);color:var(--blueprint);background:var(--blueprint-soft);font-weight:600}
+.scrim{position:fixed;inset:0;background:rgba(16,23,32,.25);z-index:44;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* efeitos de entrada — estado de repouso legível; só deslocamento e leve fade */
+.rv{transform:translateY(16px);opacity:.55;transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .55s ease}
+.slide.in .rv{transform:none;opacity:1}
+.slide.in .rv:nth-child(2){transition-delay:.06s}.slide.in .rv:nth-child(3){transition-delay:.12s}.slide.in .rv:nth-child(4){transition-delay:.18s}.slide.in .rv:nth-child(5){transition-delay:.24s}.slide.in .rv:nth-child(6){transition-delay:.30s}
+.slide.cover .rv{transform:none;opacity:1}
+@media (prefers-reduced-motion:reduce){.rv{transform:none;opacity:1;transition:none}.hint::after{animation:none}.prog{transition:none}.menu{transition:none}}
+
+/* figuras leves */
+.shot{border:1px solid var(--rule);border-radius:5px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.shot img{display:block;width:100%;height:auto}
+.sets{position:relative;height:250px;max-width:520px;margin:0 auto;font-family:var(--cond)}
+.sets div{position:absolute;border-radius:50%;border:1.5px solid var(--rule);display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;font-size:13px;color:var(--ink-2);text-align:center;line-height:1.3}
+.sets .s1{inset:0;background:var(--surface-2)}
+.sets .s2{inset:12% 15% 8% 15%;background:var(--amber-soft);border-color:var(--amber)}
+.sets .s3{inset:38% 32% 14% 32%;background:var(--signal-soft);border-color:var(--signal);align-items:center;padding:0;font-weight:600;color:var(--signal)}
+.dec{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:20px}
+.dec div{border:1px solid var(--rule);border-radius:4px;padding:12px 14px;background:var(--surface)}
+.dec b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:6px}
+.dec .h{border-left:3px solid var(--stop)}.dec .h b{color:var(--stop)}
+.dec .p{border-left:3px solid var(--amber)}.dec .p b{color:var(--amber)}
+.dec .m{border-left:3px solid var(--go)}.dec .m b{color:var(--go)}
+.dec ul{margin:0;padding-left:16px;max-width:none}
+.dec li{font-family:var(--cond);font-size:14px;line-height:1.4;margin:4px 0}
+
+/* impressão: um slide por página */
+@page{size:A4 landscape;margin:12mm}
+@media print{
+  html{scroll-snap-type:none}
+  body{background:#fff;color:#101720}
+  .prog,.navbtn,.menubtn,.menu,.scrim,.hint{display:none!important}
+  .slide{min-height:0;height:auto;break-after:page;padding:8mm 4mm;border:0;justify-content:flex-start;overflow:visible}
+  .slide .inner{max-height:none;overflow:visible;zoom:1!important}
+  .slide.divider{background:#17436B!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rv{transform:none;opacity:1}
+  .more{display:block}.more>div{display:block}
+  .term{background:#0B1219!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rule-box,.trap,.case,.note,.pill,.bar-fill,.bar-track,.node,.dec div,.sets div{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .code pre,.term pre{white-space:pre-wrap;word-break:break-word}
+  a{color:inherit;text-decoration:none}
+}
+
+/* limites de altura: um slide por tela */
+.slide .tw{max-height:none;overflow:auto}
+.slide .tw table{font-size:13.5px}
+.slide .tw td,.slide .tw th{padding:8px 11px}
+.slide figure{margin-top:14px}
+.slide .shot img{max-height:34vh;width:auto;max-width:100%;margin:0 auto}
+.slide .code pre,.slide .term pre{max-height:none;overflow:auto;font-size:12px}
+.slide .rule-box,.slide .trap,.slide .case,.slide .note{margin-top:14px;padding:12px 16px}
+.slide .rule-box p,.slide .trap p,.slide .case p,.slide .note p{font-size:14.5px}
+.slide ol,.slide ul{margin-top:10px}
+.slide li{margin:5px 0;font-size:15px}
+.slide h4{margin-top:14px}
+.slide .check{max-height:none}
+.slide .refs{max-height:none}
+.slide .refs li{font-size:13px;padding:6px 0 6px 4px}
+.slide figcaption{font-size:12.5px;margin-top:8px}
+.slide .dec ul{padding-left:14px}.slide .dec li{font-size:13.5px}
+.slide .frame{padding:16px}
+.slide .sets{height:210px}
+@media (max-height:760px){.slide .shot img{max-height:30vh}}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.three figure{margin:0}
+.three .shot img{max-height:none}
+@media (max-width:900px){.three{grid-template-columns:1fr}}
+.slide .node{padding:9px 11px;gap:4px}.slide .node .nt{font-size:14px}.slide .node .nd{font-size:12px}
+
+/* ================= celular e tablet ================= */
+@media (max-width:900px){
+  html{scroll-snap-type:none}
+  .slide{height:auto;min-height:0;overflow:visible;padding:26px 16px 30px;scroll-snap-align:none;font-size:15px}
+  .slide .inner{max-height:none;overflow:visible;zoom:1!important}
+  .slide.cover,.slide.divider{min-height:72vh;padding:40px 18px}
+  .cover h1{font-size:clamp(38px,11vw,60px)}
+  .cover .lede{font-size:17px}
+  .cover-meta{gap:14px 24px}
+  .hint{display:none}
+  .slide h2{font-size:clamp(23px,6.4vw,30px)}
+  .slide .lead{font-size:15.5px}
+  .kicker-part span{display:block;margin-left:0;margin-top:2px}
+  .two,.three{grid-template-columns:minmax(0,1fr);gap:14px}
+  .slide{max-width:100vw;overflow-x:hidden}
+  .slide .inner{min-width:0}
+  .two>*,.three>*{min-width:0}
+  .slide .tw{max-height:none}
+  .slide .tw table{min-width:560px;font-size:13px}
+  .slide .shot img{max-height:none}
+  .slide .code pre,.slide .term pre{max-height:none;font-size:11.5px}
+  .slide .refs,.slide .check{max-height:none}
+  .compare{grid-template-columns:minmax(0,1fr)}.compare>div:first-child{border-right:0;border-bottom:1px solid var(--rule)}
+  .dec{grid-template-columns:minmax(0,1fr)}
+  .flow{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .sets{height:200px}
+  .navbtn{left:auto;right:10px;top:auto;bottom:10px;transform:none;flex-direction:row;gap:6px;padding:6px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--rule);border-radius:6px;box-shadow:var(--shadow)}
+  .navbtn button,.menubtn{width:38px;height:38px;box-shadow:none}
+  .navbtn .cnt{margin:0 4px 0 2px}
+  .menu{width:100vw;inset:0 0 0 0}
+  .slide.divider .num{font-size:24vw;right:2vw;bottom:-3vw}
+  .rule-box,.trap,.case,.note{padding:12px 14px}
+}
+@media (max-width:480px){
+  .slide{padding:22px 12px 26px}
+  .plate div,.cover-meta div{width:100%}
+  .bar-row{grid-template-columns:minmax(64px,90px) minmax(0,1fr) 46px;gap:6px}
+  .ui-body{grid-template-columns:1fr}.ui-side{border-right:0;border-bottom:1px solid var(--rule)}
+}
+.gl4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:14px}
+.gl{column-count:1}
+.gl{margin:0;font-family:var(--cond);font-size:12.5px;line-height:1.38;columns:2;column-gap:18px}
+.gl dt{break-inside:avoid}.gl dd{break-inside:avoid}
+@media (max-width:640px){.gl{columns:1}}
+.gl dt{font-weight:600;color:var(--blueprint);margin-top:7px}
+.gl dd{margin:1px 0 0;color:var(--ink-2)}
+
+@media (max-width:640px){.gl4{grid-template-columns:minmax(0,1fr)}}
+.menu-head{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 10px;border-bottom:1px solid var(--rule);margin-bottom:6px}
+.menu-head button{font-family:var(--mono);font-size:20px;line-height:1;width:34px;height:34px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink-2);cursor:pointer}
+.menu-head button:hover{border-color:var(--blueprint);color:var(--blueprint)}
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:4vh 4vw;background:rgba(16,23,32,.45)}
+.modal.on{display:flex}
+.modal-box{background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:6px;box-shadow:var(--shadow);max-width:1100px;width:100%;max-height:92vh;display:flex;flex-direction:column}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rule);font-family:var(--cond);font-weight:600;font-size:15px;color:var(--blueprint)}
+.modal-head button{font-family:var(--mono);font-size:20px;line-height:1;width:34px;height:34px;border:1px solid var(--rule);border-radius:4px;background:var(--surface);color:var(--ink-2);cursor:pointer}
+.modal-body{padding:14px 18px 20px;overflow:auto;font-size:15px}
+.modal-body p,.modal-body li{max-width:none;font-size:15px}
+.modal-body .tw{margin-top:10px}.modal-body .two{margin-top:8px}
+.modal-body .shot img{max-height:60vh;width:auto;max-width:100%}
+/* 4) botão de copiar */
+.code,.term{position:relative}
+.copy{position:absolute;top:6px;right:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:3px 8px;border-radius:3px;border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);cursor:pointer;opacity:.75;z-index:2}
+.copy:hover{opacity:1;border-color:var(--blueprint);color:var(--blueprint)}
+.term .copy{background:#141F2B;border-color:#2B3B4C;color:#9FB1C2}
+.copy.ok{color:var(--go);border-color:var(--go)}
+.gterm{text-decoration:underline dotted var(--blueprint-2);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help}
+.gterm:hover,.gterm:focus{background:var(--blueprint-soft);outline:none;border-radius:2px}
+.gpop{position:fixed;z-index:70;max-width:340px;background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-left:3px solid var(--blueprint);border-radius:4px;box-shadow:var(--shadow);padding:10px 12px;font-family:var(--cond);font-size:13.5px;line-height:1.45;display:none;pointer-events:none}
+.gpop.on{display:block}
+.gpop b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--blueprint);margin-bottom:4px}
+@media (hover:none){.gpop{pointer-events:auto}}
+.slide .check{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.slide .check .check-foot{grid-column:1/-1}
+.slide .check-item{border-right:1px solid var(--rule-2)}.slide .check-item:nth-child(even){border-right:0}
+.slide .refs{columns:2;column-gap:28px}.slide .refs li{break-inside:avoid}
+#s06 .tw td,#s06 .tw th{padding:6px 10px}
+@media (max-width:900px){.slide .check{grid-template-columns:minmax(0,1fr)}.slide .check-item{border-right:0}.slide .refs{columns:1}}
+
+/* extras deste manual */
+.gantt{display:grid;grid-template-columns:150px repeat(12,minmax(0,1fr));gap:4px 0;font-family:var(--cond);font-size:12.5px;align-items:center}
+.gantt .gl{padding-right:8px;color:var(--ink-2);text-align:right}
+.gantt .gm{font-family:var(--mono);font-size:10px;color:var(--ink-3);text-align:center;border-bottom:1px solid var(--rule);padding-bottom:3px}
+.gantt .gb{height:14px;border-radius:2px;background:var(--blueprint);margin:3px 1px}
+.gantt .gb.s{background:var(--signal)}.gantt .gb.g{background:var(--go)}.gantt .gb.a{background:var(--amber)}
+.cycle{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.cycle .node{align-items:center;text-align:center}
+.struct{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.struct>div{border:1px solid var(--rule);border-radius:4px;background:var(--surface);padding:10px 12px}
+.struct h5{margin:0 0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--blueprint)}
+.struct ol,.struct ul{margin:0;padding-left:16px}.struct li{font-family:var(--cond);font-size:13px;line-height:1.35;margin:2px 0}
+@media (max-width:900px){.struct{grid-template-columns:minmax(0,1fr)}.gantt{grid-template-columns:110px repeat(12,minmax(0,1fr))}}
+
+/* lupa: clique na captura para ampliar */
+.shot img{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(10,14,20,.88);display:none;align-items:center;justify-content:center;padding:3vh 3vw;cursor:zoom-out}
+.lightbox.on{display:flex}
+.lightbox img{max-width:94vw;max-height:88vh;width:auto;height:auto;border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.6);background:#fff}
+.lightbox figcaption{position:absolute;left:50%;bottom:1.6vh;transform:translateX(-50%);max-width:90vw;font-family:var(--cond);font-size:13.5px;color:#E3E9EF;text-align:center;line-height:1.4;padding:6px 12px;background:rgba(10,14,20,.6);border-radius:4px}
+.lightbox .lb-close{position:absolute;top:12px;right:14px;width:40px;height:40px;border-radius:4px;border:1px solid rgba(255,255,255,.3);background:rgba(10,14,20,.5);color:#fff;font:20px/1 var(--mono);cursor:pointer}
+.lightbox .lb-hint{position:absolute;top:18px;left:18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+@media print{.lightbox{display:none!important}}
+</style>
+<div class="prog" id="prog"></div>
+<div class="scrim" id="scrim"></div>
+<div class="gpop" id="gpop" role="tooltip"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="modal-box"><div class="modal-head"><span id="modal-title">detalhes</span><button type="button" id="modal-close" aria-label="Fechar">×</button></div><div class="modal-body" id="modal-body"></div></div></div>
+<nav class="menu" id="menu" aria-label="Sumário"><div class="menu-head"><span class="brand">MirandasTech</span><button type="button" id="menuclose" aria-label="Fechar sumário">×</button></div><div id="menulist"></div></nav>
+<div class="navbtn"><button class="menubtn" id="menubtn" aria-label="Abrir sumário">☰</button><button id="prev" aria-label="Slide anterior">↑</button><button id="next" aria-label="Próximo slide">↓</button><span class="cnt"><b id="cur">1</b>/<span id="tot">–</span></span></div>
+
+
+<main id="deck">
+<!-- ===================== CAPA ===================== -->
+<section class="slide cover" id="s00" data-title="Capa">
+  <div class="inner">
+    <span class="brand rv">MirandasTech · Manual profissional</span>
+    <h1 class="rv">Git e GitHub para pesquisadores</h1>
+    <p class="lede rv">Versionar o projeto de pesquisa do primeiro <em>commit</em> ao DOI: instalar o Git, registrar cada versão do texto, dos dados e dos scripts, publicar no GitHub com README, licença e <code>CITATION.cff</code>, e obter um DOI pelo Zenodo — <strong>com ferramentas gratuitas, saídas reais de terminal e cada fato datado</strong>.</p>
+    <div class="cover-meta rv">
+      <div><b>Série</b><span>Manuais MirandasTech · pesquisa científica</span></div>
+      <div><b>Versão</b><span>1.0 · setembro de 2026</span></div>
+      <div><b>Formato</b><span><span id="nslides">–</span> slides</span></div>
+      <div><b>Licença</b><span>CC BY 4.0 — cite a fonte</span></div>
+    </div>
+  </div>
+  <div class="hint">role para começar</div>
+</section>
+
+<section class="slide" id="s01" data-title="Para quem é e o que você vai aprender">
+  <div class="inner">
+    <div class="kicker-part rv">Como usar<span>cada slide é um passo que você executa no terminal ou no navegador</span></div>
+    <h2 class="rv">Para quem é — e o que você vai saber fazer ao final</h2>
+    <p class="lead rv">Este manual é para <strong>pós-graduandos e pesquisadores que nunca usaram Git</strong> e têm um projeto com texto, dados e scripts que precisa de histórico, cópia de segurança e, no fim, um <span class="gterm" tabindex="0" data-t="DOI" data-d="Digital Object Identifier: identificador permanente; para código, emitido pelo Zenodo a cada release.">DOI</span>. Não exige programação: todo comando está pronto para copiar, e a saída que aparece ao lado é a saída real de uma sessão de terminal feita em 09/09/2026. O manual não faz login no GitHub, no <span class="gterm" tabindex="0" data-t="Zenodo" data-d="Repositório aberto que arquiva releases do GitHub e emite DOIs; lê o CITATION.cff para os metadados.">Zenodo</span>, no <span class="gterm" tabindex="0" data-t="OSF" data-d="Open Science Framework: plataforma de projetos e pré-registro; o add-on GitHub mostra o repositório na seção «Files».">OSF</span> nem no <span class="gterm" tabindex="0" data-t="Overleaf" data-d="Editor LaTeX on-line; a integração Git e o GitHub Synchronization são recursos premium.">Overleaf</span>: as páginas públicas aparecem em capturas, e o que exige login é descrito pela documentação oficial, com os nomes exatos dos botões.</p>
+    <div class="two rv">
+      <div>
+        <h4>Ao final, você vai conseguir</h4>
+        <ul class="bul">
+          <li><strong>Explicar</strong> o que é um <span class="gterm" tabindex="0" data-t="Repositório" data-d="A pasta do projeto com a pasta oculta .git/, onde o Git guarda todo o histórico; git init o cria.">repositório</span>, um <span class="gterm" tabindex="0" data-t="Commit" data-d="Uma versão registrada do projeto: autor, data, mensagem e o conteúdo dos arquivos; identificado por um código como 3b95655.">commit</span>, um <span class="gterm" tabindex="0" data-t="Branch" data-d="Linha de desenvolvimento paralela; main é a principal; git switch -c cria outra.">branch</span> e uma tag — e por que a evidência recomenda controle de versão na pesquisa (Ram, 2013; Perez-Riverol et al., 2016).</li>
+          <li><strong>Instalar</strong> o Git, configurar nome e e-mail, criar o <span class="gterm" tabindex="0" data-t="Repositório" data-d="A pasta do projeto com a pasta oculta .git/, onde o Git guarda todo o histórico; git init o cria.">repositório</span> e fazer o primeiro <span class="gterm" tabindex="0" data-t="Commit" data-d="Uma versão registrada do projeto: autor, data, mensagem e o conteúdo dos arquivos; identificado por um código como 3b95655.">commit</span> (<code>init</code>, <code>status</code>, <code>add</code>, <code>commit</code>, <code>log</code>).</li>
+          <li><strong>Decidir</strong> o que entra e o que fica fora do Git: <code>.gitignore</code>, dados pessoais, arquivos licenciados, segredos e binários pesados.</li>
+          <li><strong>Publicar</strong> no GitHub: conta gratuita, repositório, <code>git push</code>, <span class="gterm" tabindex="0" data-t="README" data-d="Arquivo Markdown na raiz que o GitHub renderiza na página do repositório: o que é, como usar, como citar.">README</span>, issues, <span class="gterm" tabindex="0" data-t="Push · pull · clone" data-d="push envia commits ao remoto; pull traz os do remoto; clone cria um repositório local a partir de um remoto.">pull</span> requests e GitHub Actions.</li>
+          <li><strong>Preparar</strong> a citação: <span class="gterm" tabindex="0" data-t="Licença" data-d="Os termos de reutilização (MIT, GPLv3, Apache 2.0, CC BY 4.0) num arquivo LICENSE; sem ela ninguém pode reutilizar legalmente.">licença</span>, <code>CITATION.cff</code>, o botão «Cite this repository», uma <em><span class="gterm" tabindex="0" data-t="Release" data-d="Uma tag publicada no GitHub com título, notas e anexos; traz ZIP e tar.gz do código; é o que o Zenodo arquiva.">release</span></em> e o <span class="gterm" tabindex="0" data-t="DOI" data-d="Digital Object Identifier: identificador permanente; para código, emitido pelo Zenodo a cada release.">DOI</span> pelo <span class="gterm" tabindex="0" data-t="Zenodo" data-d="Repositório aberto que arquiva releases do GitHub e emite DOIs; lê o CITATION.cff para os metadados.">Zenodo</span>.</li>
+          <li><strong>Rodar</strong> três scripts: <code>checar_repo.py</code> (auditoria), <code>citacao_cff.py</code> (arquivo de citação) e <code>salvar_versao.sh</code> (commit + tag).</li>
+        </ul>
+      </div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Nomes de menu e de botão são os da documentação oficial do GitHub em português (docs.github.com/pt) e das páginas públicas observadas em 09/09/2026; quando a sua tela divergir, vale a tela. As saídas de terminal são reais (Git 2.48.1 nesta máquina), com o caminho trocado por <code>/home/usuario</code> e uma autora fictícia, «Aluna Exemplo».</p></div>
+        <div class="trap"><span class="blabel">Armadilha</span><p><strong>Tratar o Git como uma pasta de backup.</strong> Tudo o que entra num commit fica no histórico — inclusive uma senha ou um CPF que você apagou no commit seguinte. Antes do primeiro <code>git add</code>, o slide «O que entra e o que fica fora» e o <code>checar_repo.py</code> (Parte 5) decidem o que pode ser versionado.</p></div>
+        <div class="note"><span class="blabel">Manuais irmãos</span><p>Este manual cuida do <em>versionamento e da publicação</em>. Os passos vizinhos estão nos manuais de <a href="https://metodologia.mirandastech.com.br/">Metodologia</a> (o projeto), <a href="https://busca.mirandastech.com.br/">Busca</a> e <a href="https://prisma.mirandastech.com.br/">PRISMA</a> (o conteúdo), <a href="https://zotero.mirandastech.com.br/">Zotero</a> (as referências), <a href="https://latex.mirandastech.com.br/">LaTeX</a> (o texto em <code>.tex</code>, que o Git versiona linha a linha), <a href="https://manual.mirandastech.com.br/">Uso de IA</a> (declarar) e <a href="https://plugin.mirandastech.com.br/">Plugin</a> (o agente que audita o repositório). Hub: <a href="https://www.mirandastech.com.br/pesquisa">mirandastech.com.br/pesquisa</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s02" data-title="Mapa: do commit ao DOI">
+  <div class="inner">
+    <div class="kicker-part rv">Introdução<span>o roteiro do manual segue a ordem de um projeto</span></div>
+    <h2 class="rv">Mapa: do primeiro commit ao DOI — e onde cada parte do manual entra</h2>
+    <div class="flow rv">
+      <div class="node"><span class="nn">1</span><span class="nt">Instalar e configurar</span><span class="nd">Git 2.55.0 em git-scm.com/install; <code>user.name</code> e <code>user.email</code> uma vez por máquina</span></div>
+      <div class="node"><span class="nn">2</span><span class="nt">Repositório local</span><span class="nd"><code>git init -b main</code>, <code>git add</code>, <code>git commit</code>; o histórico fica na pasta oculta <code>.git/</code></span></div>
+      <div class="node"><span class="nn">3</span><span class="nt">O que fica fora</span><span class="nd"><code>.gitignore</code>; dados pessoais, arquivos licenciados, segredos e binários pesados não entram</span></div>
+      <div class="node"><span class="nn">4</span><span class="nt"><span class="gterm" tabindex="0" data-t="Branch" data-d="Linha de desenvolvimento paralela; main é a principal; git switch -c cria outra.">Branch</span>, <span class="gterm" tabindex="0" data-t="Merge" data-d="Combinar os commits de um branch em outro; «fast-forward» quando o destino só precisa avançar.">merge</span>, tag</span><span class="nd">Uma linha paralela para a revisão do capítulo; <em><span class="gterm" tabindex="0" data-t="Merge" data-d="Combinar os commits de um branch em outro; «fast-forward» quando o destino só precisa avançar.">merge</span></em> de volta; uma tag por marco</span></div>
+      <div class="node"><span class="nn">5</span><span class="nt"><span class="gterm" tabindex="0" data-t="Remoto" data-d="Cópia do repositório num servidor (GitHub, GitLab); o primeiro chama-se origin por convenção.">Remoto</span> no GitHub</span><span class="nd">Conta gratuita, repositório, <code>git remote add origin</code>, <code>git push -u origin main --follow-tags</code></span></div>
+      <div class="node"><span class="nn">6</span><span class="nt"><span class="gterm" tabindex="0" data-t="README" data-d="Arquivo Markdown na raiz que o GitHub renderiza na página do repositório: o que é, como usar, como citar.">README</span>, <span class="gterm" tabindex="0" data-t="Licença" data-d="Os termos de reutilização (MIT, GPLv3, Apache 2.0, CC BY 4.0) num arquivo LICENSE; sem ela ninguém pode reutilizar legalmente.">licença</span>, citação</span><span class="nd">README.md, LICENSE (choosealicense.com), <code>CITATION.cff</code> → botão «Cite this repository»</span></div>
+      <div class="node gate"><span class="nn">7</span><span class="nt"><span class="gterm" tabindex="0" data-t="Release" data-d="Uma tag publicada no GitHub com título, notas e anexos; traz ZIP e tar.gz do código; é o que o Zenodo arquiva.">Release</span> → DOI</span><span class="nd">Repositório público com licença, ligado ao Zenodo: cada <em>release</em> ganha um DOI</span></div>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:170px">Parte</th><th>O que cobre</th><th style="width:120px">Passos</th></tr></thead><tbody>
+        <tr><td><b>1 O que é e por que usar</b></td><td>Git contra «versão_final_v3» · a evidência · Git × GitHub × GitLab · o que entra e o que fica fora · instalar e configurar</td><td>Passos 1 e 3</td></tr>
+        <tr><td><b>2 Git no dia a dia</b></td><td>init, status, add, commit · log e mensagens · <span class="gterm" tabindex="0" data-t=".gitignore" data-d="Arquivo na raiz com os padrões do que o Git não deve rastrear; modelos em github.com/github/gitignore.">.gitignore</span> · branch, diff, merge, tag · conflitos · desfazer · onde aprofundar</td><td>Passos 2 a 4</td></tr>
+        <tr><td><b>3 GitHub passo a passo</b></td><td>Conta e planos · criar repositório · <span class="gterm" tabindex="0" data-t="Push · pull · clone" data-d="push envia commits ao remoto; pull traz os do remoto; clone cria um repositório local a partir de um remoto.">push</span> · a página do repositório · Actions · issues e PRs · Desktop, VS Code, CLI, <span class="gterm" tabindex="0" data-t="Codespaces" data-d="Ambiente de desenvolvimento na nuvem, pelo navegador ou VS Code; 120 horas-núcleo e 15 GB por mês no Free.">Codespaces</span> · Pages · LFS · <span class="gterm" tabindex="0" data-t="Overleaf" data-d="Editor LaTeX on-line; a integração Git e o GitHub Synchronization são recursos premium.">Overleaf</span> e <span class="gterm" tabindex="0" data-t="OSF" data-d="Open Science Framework: plataforma de projetos e pré-registro; o add-on GitHub mostra o repositório na seção «Files».">OSF</span></td><td>Passo 5</td></tr>
+        <tr><td><b>4 Publicar</b></td><td>README · licença · <span class="gterm" tabindex="0" data-t="CITATION.cff" data-d="Arquivo no Citation File Format (1.2.0) que diz como citar o repositório; ativa o botão «Cite this repository».">CITATION.cff</span> · releases · DOI pelo Zenodo · GitLab como alternativa</td><td>Passos 6 e 7</td></tr>
+        <tr><td><b>5 Scripts e fechamento</b></td><td>checar_repo.py · citacao_cff.py · salvar_versao.sh · plugin · erros comuns · checklist · glossário · referências</td><td>Todos</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Como ler</span><p>Quem nunca abriu um terminal começa na Parte 1 e faz a Parte 2 com o terminal aberto ao lado. Quem já faz commits e quer o GitHub sem surpresas vai à Parte 3. Quem precisa publicar dados ou código com DOI para um artigo vai direto à Parte 4 — e roda o <code>checar_repo.py</code> da Parte 5 antes.</p></div>
+        <div class="note"><span class="blabel">Convenções</span><p>Nomes de menu e de botão entre «aspas angulares». Comandos em blocos com botão «copiar». Capturas de páginas em 1920 × 938, feitas em 09/09/2026 sem login. Figuras de terminal com «saída real»: sessão desta máquina, caminho trocado por <code>/home/usuario</code>, repositório fictício <code>minha-pesquisa</code>. Nunca há senha, token ou chave neste manual nem nos scripts.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 1 ===================== -->
+<section class="slide divider" id="s03" data-title="Parte 1 · O que é e por que usar"><div class="inner"><div class="kicker-part rv">Parte 1<span>O que é e por que usar</span></div><h2 class="rv">Git contra «versão_final_v3_revisada.docx»; o que a evidência diz; Git, GitHub e GitLab; o que entra e o que fica fora; instalar e configurar</h2><p class="rv">Antes do primeiro comando: o que o Git guarda e o que ele não deve guardar, por que os guias de computação científica o recomendam, a diferença entre a ferramenta e os serviços que a hospedam — e a instalação em cinco minutos.</p></div><div class="num">01</div></section>
+
+<section class="slide" id="s04" data-title="Git contra «versão_final_v3_revisada.docx»">
+  <div class="inner">
+    <div class="kicker-part rv">O que é e por que usar<span>1 de 5 · git-scm.com/about · The Turing Way, «Version Control» · captura de 09/09/2026</span></div>
+    <h2 class="rv">Git contra «versão_final_v3_revisada.docx»: um histórico completo, com autor, data e motivo de cada mudança</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_22_turing_way_vcs.jpg" width="1920" height="938" alt="Capítulo Version Control do The Turing Way, com a introdução sobre controle de versão e proveniência"></div><figcaption><b>Figura 1</b> O capítulo «Version Control» do <em>The Turing Way</em> (captura de 09/09/2026): o controle de versão é exigido para seguir a proveniência do que se produz; o Git não serve para versionar binários; branches permitem desenvolvimento não linear; plataformas citadas: GitHub, GitLab e Codeberg.</figcaption></figure>
+      <div>
+        <p class="lead"><strong>Git</strong> é um sistema de controle de versão distribuído, livre e de código aberto (GPLv2), segundo git-scm.com/about — o site cita uma pesquisa de 2022 em que «96% dos desenvolvedores profissionais usam Git», e o histórico do kernel Linux (1,4 milhão de commits) ocupa 5,5 GB. Para a pesquisa, o que importa é outra coisa: cada commit guarda quem mudou, quando, o quê e por quê.</p>
+        <div class="compare">
+          <div><div class="cmp-h">Pasta com cópias</div><ul>
+            <li><code>texto_v1.docx</code>, <code>texto_v2.docx</code>, <code>texto_final.docx</code>, <code>texto_final_REVISADO.docx</code>…</li>
+            <li>Ninguém sabe o que mudou entre duas cópias, nem quem mudou</li>
+            <li>Dois autores editando: uma cópia sobrescreve a outra</li>
+            <li>O backup é a última cópia que alguém lembrou de fazer</li>
+          </ul></div>
+          <div><div class="cmp-h">Repositório Git</div><ul>
+            <li>Um único <code>main.tex</code>; o histórico fica em <code>.git/</code></li>
+            <li><code>git log</code> lista cada versão com autor, data e mensagem; <code>git diff</code> mostra linha a linha o que mudou</li>
+            <li>Cada autor trabalha na sua cópia; o Git combina as mudanças e aponta os conflitos</li>
+            <li><code>git push</code> leva o histórico inteiro para o GitHub, o GitLab ou o servidor da instituição</li>
+          </ul></div>
+        </div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>O Git versiona <em>texto</em>: <code>.tex</code>, <code>.md</code>, <code>.csv</code>, <code>.py</code>, <code>.R</code>, <code>.bib</code>. Um <code>.docx</code> ou um PDF entra, mas o Git só sabe dizer que «mudou», não o quê — o <em>Turing Way</em> é direto: não é ferramenta para versionar binários. Quem escreve em LaTeX (manual irmão) ganha o <em>diff</em> por linha de graça.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s05" data-title="O que a evidência e os guias dizem">
+  <div class="inner">
+    <div class="kicker-part rv">O que é e por que usar<span>2 de 5 · Ram (2013); Perez-Riverol et al. (2016); Blischak, Davenport e Wilson (2016); Wilson et al. (2017); The Turing Way (2024); Software Carpentry</span></div>
+    <h2 class="rv">O que a evidência e os guias dizem: reprodutibilidade, transparência e «práticas boas o bastante»</h2>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:230px">Fonte</th><th>O que diz</th><th style="width:220px">O que muda para você</th></tr></thead><tbody>
+        <tr><td><b>Ram (2013)</b>, Source Code for Biology and Medicine</td><td>O Git pode facilitar maior reprodutibilidade e mais transparência na ciência</td><td>O histórico do projeto é parte do método, não um detalhe técnico</td></tr>
+        <tr><td><b>Perez-Riverol et al. (2016)</b>, PLOS Comput. Biol.</td><td>«Ten Simple Rules» para tirar proveito do Git e do GitHub</td><td>Regras práticas: repositório por projeto, commits pequenos, issues, releases com DOI</td></tr>
+        <tr><td><b>Blischak, Davenport e Wilson (2016)</b>, PLOS Comput. Biol.</td><td>Introdução rápida ao controle de versão com Git e GitHub para cientistas</td><td>O tutorial que a Parte 2 segue no espírito: poucos comandos, usados sempre</td></tr>
+        <tr><td><b>Wilson et al. (2017)</b>, PLOS Comput. Biol.</td><td>«Good enough practices»: manuscrito em texto simples e sob controle de versão</td><td>Não precisa dominar o Git inteiro; o básico já é «bom o bastante»</td></tr>
+        <tr><td><b>The Turing Way (2024)</b>, Zenodo</td><td>Controle de versão é exigido para seguir a proveniência; nada de binários; branches; GitHub, GitLab, Codeberg</td><td>O manual de referência para pesquisa reprodutível, ética e colaborativa (CC BY 4.0)</td></tr>
+        <tr><td><b>Software Carpentry</b>, <em>Version Control with Git</em></td><td>14 episódios, de «Automated Version Control» a «Citation» e «Hosting» (CC BY 4.0)</td><td>Onde praticar depois deste manual (slide «Para aprofundar»)</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="compare">
+          <div><div class="cmp-h">O que o Git resolve</div><ul>
+            <li>«Qual versão do script gerou a Tabela 3?» — a tag da submissão responde</li>
+            <li>«O que mudou desde a qualificação?» — <code>git diff</code> entre duas tags</li>
+            <li>Orientador e estudante editando o mesmo texto, com histórico de quem fez o quê</li>
+            <li>Revisor pedindo o código: um link para o repositório, com DOI</li>
+          </ul></div>
+          <div><div class="cmp-h">O que o Git não resolve</div><ul>
+            <li>Backup dos dados brutos grandes — esses vão para um repositório de dados (OSF, Zenodo, o da instituição)</li>
+            <li>Anonimização: um repositório privado não torna um dado pessoal público em «anônimo»</li>
+            <li>Organização do projeto: a estrutura de pastas vem do plugin e do manual de Metodologia</li>
+          </ul></div>
+        </div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Comece pequeno, como Wilson et al. (2017) recomendam: um repositório por projeto, <code>git add</code> e <code>git commit</code> ao fim de cada sessão de trabalho, uma tag a cada marco. Branches, <span class="gterm" tabindex="0" data-t="Push · pull · clone" data-d="push envia commits ao remoto; pull traz os do remoto; clone cria um repositório local a partir de um remoto.">pull</span> requests e CI vêm depois, quando houver mais de uma pessoa ou mais de um caminho a explorar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s06" data-title="Git × GitHub × GitLab">
+  <div class="inner">
+    <div class="kicker-part rv">O que é e por que usar<span>3 de 5 · git-scm.com · github.com · about.gitlab.com · captura de 09/09/2026</span></div>
+    <h2 class="rv">Git × GitHub × GitLab: a ferramenta no seu computador e os serviços que hospedam o repositório</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_01_github_home.jpg" width="1920" height="938" alt="Página inicial do GitHub em português, com o título O futuro do desenvolvimento de software acontece em conjunto e os botões de inscrição"></div><figcaption><b>Figura 2</b> A home do GitHub em português (captura de 09/09/2026): «O futuro do desenvolvimento de software acontece em conjunto». O GitHub é um serviço que hospeda repositórios Git e acrescenta a interface web, issues, pull requests, Actions, Pages e Codespaces; a conta pessoal é gratuita (slide «Conta e planos»).</figcaption></figure>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:130px">Nome</th><th>O que é</th><th style="width:200px">Onde roda · custo</th></tr></thead><tbody>
+          <tr><td><b>Git</b></td><td>O programa de controle de versão: cria o repositório, registra commits, compara versões, combina branches. Funciona sem internet e sem conta</td><td>No seu computador · gratuito (GPLv2); versão 2.55.0</td></tr>
+          <tr><td><b>GitHub</b></td><td>Serviço que hospeda repositórios Git e soma interface web, issues, pull requests, Actions, Pages, <span class="gterm" tabindex="0" data-t="Codespaces" data-d="Ambiente de desenvolvimento na nuvem, pelo navegador ou VS Code; 120 horas-núcleo e 15 GB por mês no Free.">Codespaces</span>, «Cite this repository» e a integração com o Zenodo</td><td>Na nuvem · Free (US$ 0), Team (US$ 4/usuário/mês), Enterprise (US$ 21)</td></tr>
+          <tr><td><b>GitLab</b></td><td>Alternativa com o mesmo Git por baixo: gerenciamento de código e CI/CD; muitas universidades hospedam uma instância própria</td><td>Na nuvem ou na instituição · Gratuito (US$ 0), Premium (US$ 29/usuário/mês, anual), Ultimate (sob consulta)</td></tr>
+          <tr><td><b>Codeberg</b></td><td>Plataforma comunitária citada pelo <em>Turing Way</em> como alternativa</td><td>Na nuvem</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Aprenda o Git, não o GitHub: tudo o que este manual faz no terminal funciona igual com GitLab, Codeberg ou um servidor da instituição. O GitHub é a escolha deste manual porque é o mais usado, tem documentação em português e liga-se ao Zenodo para o DOI (Parte 4) — mas o repositório é seu e pode ser levado para outro serviço com um <code>git push</code>.</p></div>
+        <div class="note"><span class="blabel">Vocabulário</span><p><em>Local</em> é o repositório na sua máquina; <em><span class="gterm" tabindex="0" data-t="Remoto" data-d="Cópia do repositório num servidor (GitHub, GitLab); o primeiro chama-se origin por convenção.">remoto</span></em> é a cópia no serviço (por convenção chamada <code>origin</code>). <code>git push</code> envia commits do local para o remoto; <code>git pull</code> traz os do remoto; <code>git clone</code> cria um local a partir de um remoto.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s07" data-title="O que entra e o que fica fora do Git">
+  <div class="inner">
+    <div class="kicker-part rv">O que é e por que usar<span>4 de 5 · docs.github.com «Sobre arquivos grandes no GitHub» · LGPD · checar_repo.py</span></div>
+    <h2 class="rv">O que entra e o que fica fora do Git: texto e scripts entram; dados pessoais, arquivos licenciados, segredos e binários pesados ficam fora</h2>
+    <div class="two rv">
+      <div>
+        <div class="compare">
+          <div><div class="cmp-h">Entra no Git</div><ul>
+            <li>Texto: <code>.tex</code>, <code>.md</code>, <code>.bib</code>, <code>.csv</code> pequenos, o diário de busca</li>
+            <li>Código: <code>.py</code>, <code>.R</code>, <code>.sh</code>, notebooks, <code>requirements.txt</code></li>
+            <li>Metadados: README, LICENSE, <code>CITATION.cff</code>, <code>.gitignore</code></li>
+            <li>Figuras finais leves (PDF, PNG de poucos MB) e tabelas de resultados</li>
+            <li>Dados derivados, agregados e anonimizados, quando a licença permite</li>
+          </ul></div>
+          <div><div class="cmp-h">Fica fora — sempre</div><ul>
+            <li><strong>Dados pessoais</strong> de participantes (LGPD): nome, CPF, e-mail, gravações, prontuários — mesmo em repositório privado</li>
+            <li><strong>Arquivos licenciados</strong>: PDFs de artigos de bases pagas, exportações completas de bases (Web of Science, Scopus), planilhas de terceiros</li>
+            <li><strong>Segredos</strong>: <code>.env</code>, tokens, chaves de API, senhas, chaves privadas (<code>.pem</code>, <code>id_rsa</code>)</li>
+            <li><strong>Binários pesados</strong>: vídeos, áudio, imagens brutas, modelos treinados, bancos de dados</li>
+            <li>Arquivos gerados: <code>.aux</code>, <code>.log</code>, <code>__pycache__/</code>, <code>.Rhistory</code></li>
+          </ul></div>
+        </div>
+      </div>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:250px">Limite do GitHub (docs, 09/09/2026)</th><th>Valor</th></tr></thead><tbody>
+          <tr><td>Aviso por arquivo</td><td>acima de <b>50 MiB</b></td></tr>
+          <tr><td>Bloqueio por arquivo</td><td>acima de <b>100 MiB</b> (o <span class="gterm" tabindex="0" data-t="Push · pull · clone" data-d="push envia commits ao remoto; pull traz os do remoto; clone cria um repositório local a partir de um remoto.">push</span> é recusado)</td></tr>
+          <tr><td>Upload pelo navegador</td><td>até <b>25 MiB</b> por arquivo</td></tr>
+          <tr><td>Tamanho do repositório</td><td>idealmente <b>&lt; 1 GB</b>; «fortemente recomendado» <b>&lt; 5 GB</b></td></tr>
+          <tr><td>Acima disso</td><td><span class="gterm" tabindex="0" data-t="Git LFS" data-d="Large File Storage: guarda arquivos grandes fora do histórico e deixa um ponteiro de texto no Git; 10 GiB no GitHub Free.">Git LFS</span> (slide «Arquivos grandes e <span class="gterm" tabindex="0" data-t="Git LFS" data-d="Large File Storage: guarda arquivos grandes fora do histórico e deixa um ponteiro de texto no Git; 10 GiB no GitHub Free.">Git LFS</span>»)</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Uma pasta <code>dados_FORA_DO_GIT/</code> (o plugin já a cria e a deixa fora do versionamento) recebe tudo o que é bruto, pessoal ou licenciado; no repositório entram o script que processa e o resultado agregado. Segredos ficam num <code>.env</code> listado no <code>.gitignore</code> desde o primeiro commit.</p></div>
+        <div class="trap"><span class="blabel">Armadilha</span><p><strong>«Apaguei no commit seguinte».</strong> Apagar um arquivo não o tira do histórico: quem clonar o repositório ainda encontra o segredo ou o CPF nos commits anteriores. Um segredo que entrou no Git está vazado — troque a credencial; o <code>checar_repo.py</code> (Parte 5) avisa com «BLOQUEIO» antes do push.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s08" data-title="Instalar e configurar">
+  <div class="inner">
+    <div class="kicker-part rv">O que é e por que usar<span>5 de 5 · git-scm.com/install · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Instalar e configurar: Git 2.55.0 para Windows, macOS e Linux; <code>user.name</code> e <code>user.email</code> uma vez por máquina</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_38_git_downloads.jpg" width="1920" height="938" alt="Página de instalação do Git (git-scm.com/install) com as abas Windows, macOS e Linux e a versão 2.55.0"></div><figcaption><b>Figura 3</b> git-scm.com/install (captura de 09/09/2026): Windows, macOS e Linux; versão 2.55.0. Windows: instalador «Git for Windows»; macOS: Homebrew (<code>brew install git</code>) ou Xcode Command Line Tools; Linux: <code>apt install git</code>, <code>dnf install git</code>.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_10_git_scm.jpg" width="1920" height="938" alt="Página inicial do git-scm.com com Latest source release 2.55.0 e os links para o livro Pro Git e a documentação"></div><figcaption><b>Figura 4</b> A home de git-scm.com (captura de 09/09/2026): «Latest source release 2.55.0»; daqui saem a documentação de referência e o livro <em>Pro Git</em>, traduzido para o português (slide «Para aprofundar»).</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — depois de instalar (o mesmo em Windows, macOS e Linux)</div><pre>git --version                                  # confere a instalação (nesta máquina: 2.48.1)
+git config --global user.name "Aluna Exemplo"   # o nome que vai em cada commit
+git config --global user.email "aluna@universidade.br"
+git config --global --list                     # confere o que ficou gravado</pre></div>
+      </div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Nome e e-mail vão para o histórico de todos os commits e aparecem no GitHub: use o nome com que você assina os artigos e um e-mail que continue seu depois do curso. O VS Code exige essas duas configurações e Git ≥ 2.0.0 para funcionar (slide «GitHub Desktop e VS Code»).</p></div>
+        <div class="note"><span class="blabel">Versão</span><p>A demonstração deste manual rodou com Git 2.48.1; nenhum comando aqui exige a versão mais nova (2.55.0). O <code>git init -b main</code> (Parte 2) cria o repositório já com o branch <code>main</code>, sem depender de configuração.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 2 ===================== -->
+<section class="slide divider" id="s09" data-title="Parte 2 · Git no dia a dia"><div class="inner"><div class="kicker-part rv">Parte 2<span>Git no dia a dia</span></div><h2 class="rv">init, status, add e commit; log e boas mensagens; .gitignore; branch, diff, merge e tag; conflitos; desfazer com segurança; onde aprofundar</h2><p class="rv">Sete slides com o terminal aberto: cada comando aparece com a saída real da sessão de 09/09/2026 (Git 2.48.1, em português, repositório fictício <code>minha-pesquisa</code>). Os conceitos que não foram executados na demonstração — conflitos e desfazer — são explicados sem inventar saída.</p></div><div class="num">02</div></section>
+
+<section class="slide" id="s10" data-title="init, status, add e commit">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>1 de 7 · demonstração de 09/09/2026 · Git 2.48.1 em português</span></div>
+    <h2 class="rv">Começar um repositório: <code>git init</code>, <code>git status</code>, <code>git add</code> e o primeiro <code>git commit</code></h2>
+    <figure class="rv"><div class="shot"><img src="capturas/gh_t1_git_basico.jpg" width="1920" height="609" alt="Terminal: mkdir e cd minha-pesquisa, git init -b main, git config user.name e user.email, git status --short com quatro arquivos não rastreados, git add, git commit com a saída root-commit 3b95655 e git log --oneline"></div><figcaption><b>Figura 5</b> A sessão de 09/09/2026 (saída real, caminho trocado por <code>/home/usuario</code>): <code>git init -b main</code> responde «Repositório vazio Git inicializado em /home/usuario/minha-pesquisa/.git/»; <code>git status --short</code> lista quatro itens com <code>??</code> (não rastreados); <code>git add</code> e <code>git commit -m</code> produzem <code>[main (root-commit) 3b95655] … 4 files changed, 25 insertions(+)</code>; <code>git log --oneline</code> mostra o commit.</figcaption></figure>
+    <div class="two rv">
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt"><code>git init -b main</code></span><span class="nd">Na pasta do projeto: cria a pasta oculta <code>.git/</code> e o branch <code>main</code>. Uma vez por projeto</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt"><code>git status --short</code></span><span class="nd"><code>??</code> = arquivo que o Git ainda não rastreia; <code>M</code> = modificado; <code>A</code> = adicionado à <span class="gterm" tabindex="0" data-t="Staging area (área de preparação)" data-d="O que o próximo commit vai incluir; git add põe, git restore --staged tira.">área de preparação</span></span></div>
+          <div class="node"><span class="nn">3</span><span class="nt"><code>git add …</code></span><span class="nd">Coloca os arquivos escolhidos na <span class="gterm" tabindex="0" data-t="Staging area (área de preparação)" data-d="O que o próximo commit vai incluir; git add põe, git restore --staged tira.">área de preparação</span> (<em>staging</em>): o que o próximo commit vai incluir</span></div>
+          <div class="node gate"><span class="nn">4</span><span class="nt"><code>git commit -m "…"</code></span><span class="nd">Registra a versão com a mensagem; o código <code>3b95655</code> é o identificador do commit</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Nomeie os arquivos no <code>git add</code> (como na figura: <code>README.md .gitignore 06_texto/main.tex 01_buscas/BUSCA.csv</code>) até o <code>.gitignore</code> estar pronto (slide seguinte); só então <code>git add -A</code> é seguro. Sempre <code>git status</code> antes de <code>git commit</code>: é a lista do que vai entrar.</p></div>
+        <div class="note"><span class="blabel">O que a saída diz</span><p><code>root-commit</code> é o primeiro commit do repositório; <code>create mode 100644</code> é o modo de arquivo normal (sem permissão de execução). Os identificadores (<code>3b95655</code>) são únicos por repositório: os seus serão diferentes.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s11" data-title="log e o que é um bom commit">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>2 de 7 · Pro Git, «Fundamentos do Git» · Wilson et al. (2017)</span></div>
+    <h2 class="rv"><code>git log</code> e o que é um bom commit: pequeno, coeso e com uma mensagem que diga o que mudou e por quê</h2>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — ler o histórico e as diferenças</div><pre>git log --oneline                      # uma linha por commit: identificador e mensagem
+git log --oneline --graph --decorate   # com o desenho dos branches e as tags (Figura 7)
+git diff                               # o que mudou nos arquivos e ainda não foi adicionado
+git diff --staged                      # o que já está na área de preparação
+git show 3b95655                       # tudo o que um commit mudou</pre></div>
+        <div class="code"><div class="code-head">mensagens da demonstração — reais, na Figura 5 e na Figura 7</div><pre>Estrutura inicial do projeto: README, .gitignore, main.tex e diário de busca
+Capítulo 2: primeiro parágrafo da revisão
+Tira o .env do Git (a chave foi trocada)
+Licença e arquivo de citação</pre></div>
+      </div>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Um bom commit</th><th>Por quê</th></tr></thead><tbody>
+          <tr><td><b>Faz uma coisa</b></td><td>«Capítulo 2: primeiro parágrafo da revisão» — dá para entender, comparar e desfazer sozinho</td></tr>
+          <tr><td><b>Mensagem no imperativo ou no presente</b></td><td>«Tira o .env do Git», «Acrescenta a Tabela 3»: a primeira linha é o que aparece em <code>git log --oneline</code> e no GitHub</td></tr>
+          <tr><td><b>Diz o porquê quando não é óbvio</b></td><td>«(a chave foi trocada)» — quem ler o histórico daqui a um ano agradece</td></tr>
+          <tr><td><b>Frequente</b></td><td>Ao fim de cada sessão de trabalho, ou a cada resultado: Wilson et al. (2017) chamam isso de prática «boa o bastante»</td></tr>
+          <tr><td><b>Não é «tudo»</b></td><td>Um commit gigante «atualizações» esconde o que aconteceu; é o erro mais comum do iniciante (slide «Erros comuns»)</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Mensagens em português, como na demonstração; a primeira linha com até uns 70 caracteres. Se precisar explicar mais, <code>git commit</code> sem <code>-m</code> abre o editor e a partir da segunda linha vai o detalhe. O <code>salvar_versao.sh</code> (Parte 5) faz o <code>add -A</code>, mostra o que entra e faz o commit num comando só.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s12" data-title=".gitignore">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>3 de 7 · docs.github.com «Ignorar arquivos» · github.com/github/gitignore · captura de 09/09/2026</span></div>
+    <h2 class="rv"><code>.gitignore</code>: o que o Git deve fingir que não existe — com os modelos oficiais para TeX, Python e R</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_15_gitignore_repo.jpg" width="1920" height="938" alt="Repositório github/gitignore com a lista de modelos de .gitignore por linguagem e ferramenta"></div><figcaption><b>Figura 6</b> github.com/github/gitignore (captura de 09/09/2026): a coleção oficial de modelos, um arquivo por linguagem ou ferramenta — entre eles <code>TeX.gitignore</code>, <code>Python.gitignore</code> e <code>R.gitignore</code>. Copie o conteúdo do que serve para o seu projeto para o <code>.gitignore</code> na raiz.</figcaption></figure>
+      <div>
+        <div class="code"><div class="code-head">.gitignore — exemplo para um projeto com LaTeX, Python, R e dados fora do Git (monte o seu a partir dos modelos oficiais)</div><pre># dados brutos, pessoais ou licenciados: nunca
+dados_FORA_DO_GIT/
+# segredos
+.env
+*.pem
+# gerados pelo LaTeX
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+*.toc
+*.synctex.gz
+# gerados pelo Python e pelo R
+__pycache__/
+.Rhistory
+.ipynb_checkpoints/</pre></div>
+        <div class="code"><div class="code-head">terminal — arquivo que já entrou no Git só sai com --cached (não apaga do disco)</div><pre>git rm --cached .env          # tira do Git; o arquivo continua na pasta
+echo ".env" &gt;&gt; .gitignore     # e passa a ser ignorado
+git commit -m "Tira o .env do Git (a chave foi trocada)"</pre></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>O <code>.gitignore</code> fica na raiz do repositório e entra no primeiro commit (como na Figura 5). Um padrão vale para toda a árvore; <code>pasta/</code> ignora a pasta inteira. Para ignorar algo em todos os repositórios da máquina (arquivos do editor, do sistema), o arquivo é <code>~/.config/git/ignore</code>. O gerador gitignore.io monta um arquivo a partir de várias ferramentas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s13" data-title="branch, diff, merge e tag por marco">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>4 de 7 · demonstração de 09/09/2026</span></div>
+    <h2 class="rv">Branch, diff, merge e tag: uma linha paralela para a revisão do capítulo, de volta ao <code>main</code>, e uma tag por marco</h2>
+    <figure class="rv"><div class="shot"><img src="capturas/gh_t2_branch_merge_tag.jpg" width="1920" height="820" alt="Terminal: git switch -c revisao-capitulo-2, git diff com linhas removidas e adicionadas no main.tex, git commit -am, git switch main, git merge com Fast-forward, git tag -a v0.1-qualificacao e git log --oneline --graph --decorate"></div><figcaption><b>Figura 7</b> A sessão de 09/09/2026 (saída real, caminho trocado por <code>/home/usuario</code>): <code>git switch -c revisao-capitulo-2</code> cria e entra no branch; <code>git diff</code> mostra a linha removida (<code>-</code>, em vermelho) e as acrescentadas (<code>+</code>, em verde); <code>git commit -am</code>; <code>git switch main</code>; <code>git merge revisao-capitulo-2</code> responde «Fast-forward»; <code>git tag -a v0.1-qualificacao -m "…"</code>; e <code>git log --oneline --graph --decorate</code> mostra <code>HEAD -&gt; main, tag: v0.1-qualificacao</code>.</figcaption></figure>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:250px">Comando</th><th>O que faz</th></tr></thead><tbody>
+        <tr><td><code>git switch -c nome</code></td><td>Cria um branch e muda para ele; os commits seguintes ficam nessa linha, sem tocar o <code>main</code></td></tr>
+        <tr><td><code>git diff</code></td><td>Compara o arquivo no disco com o último commit: <code>-</code> saiu, <code>+</code> entrou</td></tr>
+        <tr><td><code>git commit -am "…"</code></td><td>Adiciona todos os arquivos <em>já rastreados</em> que mudaram e faz o commit (arquivos novos ainda precisam de <code>git add</code>)</td></tr>
+        <tr><td><code>git switch main</code> → <code>git merge nome</code></td><td>Volta ao <code>main</code> e traz os commits do branch. «<span class="gterm" tabindex="0" data-t="Fast-forward" data-d="Merge sem commit novo: o branch de destino não mudou, então só avança até o commit do outro.">Fast-forward</span>»: o <code>main</code> só avançou, porque ninguém mexeu nele enquanto isso</td></tr>
+        <tr><td><code>git tag -a v0.1-qualificacao -m "…"</code></td><td>Tag anotada (com autor, data e mensagem) no commit atual: o marco «versão entregue à qualificação»</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Uma tag por marco que alguém pode pedir de volta: qualificação, submissão do artigo, versão que gerou os resultados, defesa. Use sempre <code>-a</code> e <code>-m</code>: é a tag anotada que carrega a mensagem e que o <code>git push --follow-tags</code> envia (Parte 3). Branch para trabalhar sem medo — um capítulo em revisão, uma análise alternativa — e <em>merge</em> quando ficar bom.</p></div>
+        <div class="note"><span class="blabel">Sem branch também funciona</span><p>Quem trabalha sozinho pode viver no <code>main</code> com commits e tags. O branch começa a valer quando há um orientador ou colega editando ao mesmo tempo, ou quando você quer testar algo que talvez não fique.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s14" data-title="Conflitos">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>5 de 7 · Pro Git, «Ramificação» · Software Carpentry, episódio «Conflicts»</span></div>
+    <h2 class="rv">Conflitos: quando duas pessoas mudam a mesma linha, o Git para e pede que alguém decida</h2>
+    <div class="two rv">
+      <div>
+        <p class="lead">Na demonstração o <em>merge</em> foi «<span class="gterm" tabindex="0" data-t="Fast-forward" data-d="Merge sem commit novo: o branch de destino não mudou, então só avança até o commit do outro.">Fast-forward</span>» porque só um lado mudou. Um <span class="gterm" tabindex="0" data-t="Conflito" data-d="Duas versões mudaram a mesma linha; o Git marca o trecho com &lt;&lt;&lt;&lt;&lt;&lt;&lt;, ======= e &gt;&gt;&gt;&gt;&gt;&gt;&gt; e espera uma pessoa escolher.">conflito</span> acontece quando os dois lados (dois branches, ou o seu local e o remoto) mudaram <em>a mesma linha</em> do mesmo arquivo. O Git não escolhe: ele grava as duas versões no arquivo, entre marcadores, e espera. O exemplo ao lado é <strong>ilustrativo</strong> — não foi executado na sessão deste manual.</p>
+        <div class="code"><div class="code-head">06_texto/main.tex — como um conflito aparece dentro do arquivo (exemplo ilustrativo)</div><pre>\chapter{Revisão da literatura}
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+A manutenção preditiva usa dados de sensores para antecipar falhas.
+=======
+A manutenção preditiva usa séries temporais de sensores para prever falhas.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; revisao-orientador
+\end{document}</pre></div>
+        <div class="tw"><table><thead><tr><th style="width:150px">Marcador</th><th>O que é</th></tr></thead><tbody>
+          <tr><td><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code></td><td>Começa a versão do branch em que você está</td></tr>
+          <tr><td><code>=======</code></td><td>Separa as duas versões</td></tr>
+          <tr><td><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; nome</code></td><td>Termina a versão do outro branch (ou do remoto)</td></tr>
+        </tbody></table></div>
+      </div>
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt"><code>git status</code></span><span class="nd">Lista os arquivos em <span class="gterm" tabindex="0" data-t="Conflito" data-d="Duas versões mudaram a mesma linha; o Git marca o trecho com &lt;&lt;&lt;&lt;&lt;&lt;&lt;, ======= e &gt;&gt;&gt;&gt;&gt;&gt;&gt; e espera uma pessoa escolher.">conflito</span> («both modified»)</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt">Abra o arquivo</span><span class="nd">Escolha uma versão, ou escreva a combinação das duas; apague as três linhas de marcadores</span></div>
+          <div class="node"><span class="nn">3</span><span class="nt"><code>git add arquivo</code></span><span class="nd">Diz ao Git que o conflito desse arquivo foi resolvido</span></div>
+          <div class="node gate"><span class="nn">4</span><span class="nt"><code>git commit</code></span><span class="nd">Fecha o <em>merge</em>; sem <code>-m</code>, o Git propõe a mensagem</span></div>
+        </div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Conflito não é erro: é o Git protegendo o trabalho dos dois lados. Resolva no editor (o VS Code mostra botões para aceitar cada lado), compile o <code>.tex</code> ou rode o script antes do commit final, e nunca deixe um marcador dentro do arquivo. Quanto menores e mais frequentes os commits e os <em>merges</em>, menos conflitos.</p></div>
+        <div class="note"><span class="blabel">Para desistir</span><p><code>git merge --abort</code> devolve o repositório ao estado anterior ao <em>merge</em>, sem perder nada.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s15" data-title="Desfazer com segurança">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>6 de 7 · Pro Git, «Fundamentos do Git» e «Ferramentas do Git» · só nomes e conceitos; nada foi executado na demonstração</span></div>
+    <h2 class="rv">Desfazer com segurança: <code>git restore</code> para o arquivo, <code>git revert</code> para o commit — e por que <code>reset --hard</code> fica para o fim</h2>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:170px">Quero…</th><th style="width:270px">Comando</th><th>O que acontece</th><th style="width:110px">Risco</th></tr></thead><tbody>
+        <tr><td><b>Voltar um arquivo ao último commit</b></td><td><code>git restore arquivo</code></td><td>Descarta as mudanças <em>não</em> commitadas desse arquivo</td><td><span class="pill p-amber">perde o que não foi commitado</span></td></tr>
+        <tr><td><b>Tirar da área de preparação</b></td><td><code>git restore --staged arquivo</code></td><td>Desfaz o <code>git add</code>; o arquivo continua modificado no disco</td><td><span class="pill p-go">seguro</span></td></tr>
+        <tr><td><b>Desfazer um commit já feito</b></td><td><code>git revert 8f4e070</code></td><td>Cria um <em>novo</em> commit que anula o anterior; o histórico continua íntegro</td><td><span class="pill p-go">seguro; pode dar push</span></td></tr>
+        <tr><td><b>Corrigir a mensagem do último commit</b></td><td><code>git commit --amend</code></td><td>Reescreve o último commit (só se ainda não foi enviado ao remoto)</td><td><span class="pill p-amber">não use depois do push</span></td></tr>
+        <tr><td><b>Ver um arquivo como estava numa tag</b></td><td><code>git show v0.1-qualificacao:06_texto/main.tex</code></td><td>Imprime a versão antiga sem mudar nada</td><td><span class="pill p-go">seguro</span></td></tr>
+        <tr><td><b>Jogar fora tudo desde um commit</b></td><td><code>git reset --hard 3b95655</code></td><td>Apaga commits posteriores <em>e</em> as mudanças no disco</td><td><span class="pill p-stop">destrutivo</span></td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Três verbos resolvem quase tudo: <code>restore</code> (arquivo), <code>revert</code> (commit) e <code>switch</code> (branch). Prefira sempre o que <em>acrescenta</em> um commit ao que <em>apaga</em> — o <code>revert</code> deixa registrado que a Tabela 3 foi refeita e por quê. O <code>reset --hard</code> e o <em>force push</em> reescrevem história: em repositório compartilhado, apagam o trabalho de outra pessoa.</p></div>
+        <div class="trap"><span class="blabel">Armadilha</span><p><strong>«Desfazer» um segredo com <code>revert</code>.</strong> O <code>revert</code> tira o arquivo da versão atual, mas o commit original continua no histórico — e no GitHub. Segredo que subiu está vazado: troque a credencial. O <code>git rm --cached</code> resolve para o que ainda não foi enviado (Figura 8).</p></div>
+        <div class="note"><span class="blabel">Antes de qualquer comando destrutivo</span><p><code>git status</code> e <code>git log --oneline</code>. Se estiver em dúvida, faça uma cópia da pasta inteira — o Git não impede, e o <em>Pro Git</em> dedica capítulos («Ferramentas do Git», «Git Internals») ao que pode ser recuperado.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s16" data-title="Para aprofundar: Pro Git e Software Carpentry">
+  <div class="inner">
+    <div class="kicker-part rv">Git no dia a dia<span>7 de 7 · git-scm.com/book/pt-br/v2 · swcarpentry.github.io/git-novice · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Para aprofundar: o <em>Pro Git</em> em português (gratuito) e a oficina <em>Version Control with Git</em> do Software Carpentry</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_11_progit_ptbr.jpg" width="1920" height="938" alt="Sumário do livro Pro Git, segunda edição, em português do Brasil no site git-scm.com, com os capítulos Primeiros Passos, Fundamentos do Git, Ramificação e os demais"></div><figcaption><b>Figura 8</b> <em>Pro Git</em>, 2ª edição (Chacon e Straub, Apress, 2014), em git-scm.com/book/pt-br/v2 (captura de 09/09/2026): tradução completa para o português, licença CC BY-NC-SA 3.0, PDF e EPUB gratuitos. Capítulos: Primeiros Passos, Fundamentos do Git, Ramificação, Git no Servidor, Git Distribuído, GitHub, Ferramentas do Git, Customizando o Git, Git e Outros Sistemas, Git Internals e apêndices.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_23_swcarpentry_git.jpg" width="1920" height="938" alt="Página da oficina Version Control with Git do Software Carpentry com a lista de episódios"></div><figcaption><b>Figura 9</b> <em>Version Control with Git</em>, do Software Carpentry (captura de 09/09/2026; CC BY 4.0): 14 episódios — Automated Version Control, Setting Up Git, Creating a Repository, Tracking Changes, Exploring History, Ignoring Things, Remotes in GitHub, Collaborating, Conflicts, Open Science, Licensing, Citation, Hosting e Using Git from RStudio.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:230px">Depois deste manual, leia</th><th>Para</th></tr></thead><tbody>
+        <tr><td><b>Pro Git, «Fundamentos do Git»</b></td><td>Tudo sobre <code>status</code>, <code>add</code>, <code>commit</code>, <code>log</code>, <code>diff</code>, desfazer e tags</td></tr>
+        <tr><td><b>Pro Git, «Ramificação»</b></td><td>Branches e <em>merges</em> com desenhos; conflitos com calma</td></tr>
+        <tr><td><b>Pro Git, «GitHub»</b></td><td>Conta, <span class="gterm" tabindex="0" data-t="Fork" data-d="Cópia de um repositório de outra pessoa na sua conta, para propor mudanças por pull request.">fork</span>, <span class="gterm" tabindex="0" data-t="Pull request" data-d="Pedido para incorporar os commits de um branch a outro, com revisão e discussão; «solicitação de pull» na interface em português.">pull request</span>, organização</td></tr>
+        <tr><td><b>Software Carpentry, episódios 1 a 9</b></td><td>A mesma sequência da Parte 2, com exercícios; «Remotes in GitHub» e «Collaborating» cobrem a Parte 3</td></tr>
+        <tr><td><b>Software Carpentry, «Open Science», «Licensing», «Citation»</b></td><td>O que a Parte 4 deste manual faz com licença, <code>CITATION.cff</code> e DOI</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Quando um comando deste manual não bastar, a resposta está no <em>Pro Git</em> — em português, gratuito e mantido pelo próprio projeto Git. Prefira-o a respostas soltas em fóruns: elas costumam trazer o <code>reset --hard</code> e o <em>force push</em> como se fossem inofensivos.</p></div>
+        <div class="note"><span class="blabel">RStudio</span><p>O episódio suplementar «Using Git from RStudio» mostra a aba Git do RStudio para quem trabalha em R; os comandos são os mesmos.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 3 ===================== -->
+<section class="slide divider" id="s17" data-title="Parte 3 · GitHub passo a passo"><div class="inner"><div class="kicker-part rv">Parte 3<span>GitHub passo a passo</span></div><h2 class="rv">Conta e planos; criar repositório e «Olá, Mundo»; remoto e push; a página de um repositório real; commits, Actions e CI; issues e pull requests; Desktop, VS Code, CLI e Codespaces; Pages; arquivos grandes e LFS; Overleaf e OSF</h2><p class="rv">As páginas públicas (home, preços, documentação em português, um repositório público desta série) aparecem em capturas de 09/09/2026. O que exige login — criar o repositório, o painel de configurações — é descrito pela documentação oficial em português, com os nomes exatos dos botões. O manual não faz login e não pede senha.</p></div><div class="num">03</div></section>
+
+<section class="slide" id="s18" data-title="Conta e planos">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>1 de 12 · github.com/pricing · education.github.com/pack · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Conta e planos: o GitHub Free basta para a pesquisa — e o Student Developer Pack dá o Pro a estudantes verificados</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_06_pricing.jpg" width="1920" height="938" alt="Página de preços do GitHub com os planos Free por US$ 0, Team por US$ 4 e Enterprise por US$ 21 por usuário por mês"></div><figcaption><b>Figura 10</b> github.com/pricing (captura de 09/09/2026): «Free» US$ 0; «Team» US$ 4 por usuário/mês («first 12 months»); «Enterprise» US$ 21 por usuário/mês. O plano gratuito já inclui repositórios públicos e privados ilimitados.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_17_education_pack.jpg" width="1920" height="938" alt="Página do GitHub Student Developer Pack com a oferta de GitHub Pro gratuito para estudantes e ferramentas de parceiros"></div><figcaption><b>Figura 11</b> education.github.com/pack (captura de 09/09/2026): «GitHub Pro gratuito enquanto você for estudante», Copilot, «acesso Pro ao Codespaces» e mais de 50 ferramentas de parceiros; o pedido é feito em github.com/settings/education/benefits, para estudantes verificados pelo GitHub.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:120px">Plano</th><th>Preço</th><th>O que inclui (github.com/pricing, 09/09/2026)</th></tr></thead><tbody>
+        <tr><td><b>Free</b></td><td>US$ 0</td><td>Repositórios públicos e privados ilimitados; colaboradores ilimitados; 2.000 minutos de GitHub Actions por mês; 500 MB no Packages; 120 horas-núcleo e 15 GB de Codespaces por mês; <span class="gterm" tabindex="0" data-t="GitHub Pages" data-d="Hospedagem gratuita de site estático a partir de um repositório público (https://&lt;owner&gt;.github.io/&lt;repo&gt;).">GitHub Pages</span> em repositórios públicos; alertas do Dependabot; suporte da comunidade</td></tr>
+        <tr><td><b>Team</b></td><td>US$ 4 por usuário/mês</td><td>3.000 minutos de Actions; 2 GB de Packages; revisores obrigatórios, branches protegidas, code owners; suporte por e-mail/web</td></tr>
+        <tr><td><b>Enterprise</b></td><td>US$ 21 por usuário/mês</td><td>50.000 minutos; 50 GB; SAML SSO; SLA de 99,9%</td></tr>
+        <tr><td><b>Pro</b> (individual)</td><td>gratuito no Student Developer Pack</td><td>Não aparece em destaque na página de preços; vem com o pacote de estudante</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Crie a conta gratuita em github.com com o e-mail que você configurou no Git (slide «Instalar e configurar») e um nome de usuário que continue fazendo sentido depois do curso: ele entra na URL do repositório, no <code>CITATION.cff</code> e no DOI. Este manual não cria conta nem faz login: a senha é digitada só na página do GitHub.</p></div>
+        <div class="note"><span class="blabel">Sem preço em reais</span><p>A página de preços mostra dólares; o manual não converte nem afirma promoções. O Student Developer Pack exige verificação de estudante feita pelo GitHub — a página não detalha os documentos.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s19" data-title="Criar repositório e «Olá, Mundo»">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>2 de 12 · docs.github.com/pt «Criar um repositório» e «Olá, Mundo» · capturas de 09/09/2026 · tela logada conforme a documentação oficial</span></div>
+    <h2 class="rv">Criar o repositório e o «Olá, Mundo»: «+» → «Novo repositório» → nome → «Criar repositório»; depois branch, edição, pull request e <em>merge</em></h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_08_docs_novo_repo.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Criar um repositório, com os passos do formulário de novo repositório"></div><figcaption><b>Figura 12</b> «Criar um repositório», em docs.github.com/pt (captura de 09/09/2026): «+» no canto superior → «Novo repositório» → nome, descrição, Público ou Privado, «Adicionar um arquivo LEIAME» → «Criar repositório». A página github.com/new exige login e não foi capturada.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_07_docs_hello_world.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Olá Mundo, com o tutorial de criar branch, editar o README, abrir e mesclar um pull request"></div><figcaption><b>Figura 13</b> «Olá, Mundo», em docs.github.com/pt (captura de 09/09/2026): o tutorial oficial que cria o repositório <code>hello-world</code>, o branch <code>readme-edits</code>, edita o README, abre e mescla uma solicitação de pull — tudo pelo navegador.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt">«+» → «Novo repositório»</span><span class="nd">Nome (<code>hello-world</code> no tutorial; <code>minha-pesquisa</code> aqui), descrição, Público ou Privado, «Adicionar um arquivo LEIAME» → «Criar repositório»</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt">Branch</span><span class="nd">Menu «main» → digitar <code>readme-edits</code> → «Criar branch: readme-edits a partir do main»</span></div>
+          <div class="node"><span class="nn">3</span><span class="nt">Editar e confirmar</span><span class="nd">Editar o README → «Confirmar alterações» (mensagem de commit) → «Confirmar alterações»</span></div>
+          <div class="node"><span class="nn">4</span><span class="nt"><span class="gterm" tabindex="0" data-t="Pull request" data-d="Pedido para incorporar os commits de um branch a outro, com revisão e discussão; «solicitação de pull» na interface em português.">Pull request</span></span><span class="nd">«Solicitações de pull» → «New pull request» → «Criar solicitação de pull»</span></div>
+          <div class="node gate"><span class="nn">5</span><span class="nt">Mesclar</span><span class="nd">«Mesclar solicitação de pull» → «Confirmar mesclagem» → «Excluir ramo»</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Para o projeto de pesquisa que já existe no seu computador (Parte 2), crie o repositório no GitHub <em>sem</em> «Adicionar um arquivo LEIAME» e sem <code>.gitignore</code>: o histórico vem do <code>git push</code> (slide seguinte). O «Olá, Mundo» é para entender a interface — faça-o uma vez, num repositório de teste.</p></div>
+        <div class="note"><span class="blabel">Público ou privado</span><p>Privado enquanto o texto está em construção, se preferir; público quando for citar ou pedir o DOI — o Zenodo só arquiva repositórios públicos (Parte 4). Dado pessoal não entra em nenhum dos dois.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s20" data-title="Remoto e push">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>3 de 12 · demonstração de 09/09/2026</span></div>
+    <h2 class="rv">Remoto e push: <code>git remote add origin</code> e <code>git push -u origin main --follow-tags</code> levam o histórico e as tags para o GitHub</h2>
+    <figure class="rv"><div class="shot"><img src="capturas/gh_t4_salvar_versao_push.jpg" width="1920" height="767" alt="Terminal: salvar_versao.sh com --tag v0.2, checar_repo.py sem bloqueios, git remote add origin para um repositório bare local e git push -u origin main --follow-tags com new branch e new tag"></div><figcaption><b>Figura 14</b> A sessão de 09/09/2026 (saída real, caminho trocado por <code>/home/usuario</code>): <code>salvar_versao.sh</code> faz o commit e a tag <code>v0.2</code> (Parte 5); <code>checar_repo.py</code> devolve «0 bloqueio(s), 1 aviso(s)» — o aviso é «nenhum remoto configurado»; <code>git remote add origin</code> e <code>git push -u origin main --follow-tags</code> respondem <code>* [new branch] main -&gt; main</code>, <code>* [new tag] v0.1-qualificacao</code>, <code>* [new tag] v0.2</code> e «branch 'main' set up to track 'origin/main'». O remoto aqui é um repositório <em>bare</em> local (<code>../remoto-demonstracao.git</code>), porque nenhum repositório foi criado no GitHub para a demonstração; no GitHub, a URL é <code>https://github.com/&lt;usuário&gt;/&lt;repo&gt;.git</code>.</figcaption></figure>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — ligar o projeto local ao repositório recém-criado no GitHub</div><pre>git remote add origin https://github.com/&lt;usuário&gt;/minha-pesquisa.git
+git push -u origin main --follow-tags     # primeira vez: -u grava o vínculo; --follow-tags envia as tags anotadas
+# das próximas vezes, na pasta do projeto:
+git push                                  # envia os commits novos
+git push --follow-tags                    # commits e tags novas
+git pull                                  # traz o que mudou no GitHub (edições pelo navegador, colegas)</pre></div>
+      </div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Ao fim de cada sessão: <code>git status</code> → commit → <code>git push</code>. Só depois do push o repositório existe em dois lugares — até lá, o <code>checar_repo.py</code> avisa: «o backup só existe nesta máquina». A URL do remoto se lê com <code>git remote -v</code>.</p></div>
+        <div class="note"><span class="blabel">Autenticação</span><p>No primeiro push o Git pede que você se autentique no GitHub: siga o que a tela mostrar (a documentação de autenticação está em docs.github.com/pt). Nunca cole uma credencial em script, em arquivo versionado nem neste manual — o <code>checar_repo.py</code> procura exatamente esse tipo de conteúdo antes do push.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s21" data-title="A página de um repositório real">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>4 de 12 · repositório público de um manual desta série · capturas de 09/09/2026</span></div>
+    <h2 class="rv">A página de um repositório real: árvore de arquivos, README renderizado, «About», releases, linguagens — e o arquivo aberto</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_02_repo_publico.jpg" width="1920" height="938" alt="Página inicial de um repositório público no GitHub com a árvore de arquivos, o README renderizado abaixo, a caixa About, Releases e Languages na barra lateral"></div><figcaption><b>Figura 15</b> A página inicial de um repositório público desta série — o do manual de revisão sistemática (captura de 09/09/2026): árvore de arquivos com o último commit por item, README renderizado abaixo, e na barra lateral «About», «Releases» (ainda vazio) e «Languages».</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_05_repo_arquivo.jpg" width="1920" height="938" alt="Arquivo README.md aberto no navegador do GitHub, com o conteúdo renderizado e os botões de editar e ver o código-fonte"></div><figcaption><b>Figura 16</b> O <code>README.md</code> do mesmo repositório aberto no navegador (captura de 09/09/2026): qualquer arquivo de texto pode ser lido, editado e ter o histórico consultado pela interface.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:170px">Elemento</th><th>O que é</th></tr></thead><tbody>
+        <tr><td><b>Árvore de arquivos</b></td><td>As pastas e arquivos do último commit do branch escolhido; ao lado, a mensagem do commit que mexeu em cada um</td></tr>
+        <tr><td><b>README</b></td><td>Renderizado logo abaixo da árvore: é a «capa» do projeto (slide «README»)</td></tr>
+        <tr><td><b>«About»</b></td><td>Descrição, site e tópicos; edita-se pela engrenagem ao lado</td></tr>
+        <tr><td><b>«Releases»</b></td><td>Versões publicadas com notas e anexos (Parte 4); vazio até a primeira</td></tr>
+        <tr><td><b>«Languages»</b></td><td>Proporção de cada linguagem, calculada pelos arquivos</td></tr>
+        <tr><td><b>Abas</b></td><td>Commits, issues, pull requests, Actions e configurações — aparecem nos slides seguintes</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>A página do repositório é o que um revisor, um colega ou um avaliador vê primeiro. Três coisas a fazem legível: um README que diga o que o projeto é e como reproduzir, um LICENSE e um <code>CITATION.cff</code> — os três estão na Parte 4 e os três são o que o <code>checar_repo.py</code> cobra.</p></div>
+        <div class="note"><span class="blabel">Não capturado</span><p>O grafo de rede do repositório, que desenha branches e forks, devolveu uma página de erro nas tentativas sem login em 09/09/2026 e não aparece neste manual.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s22" data-title="Commits, Actions e CI">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>5 de 12 · repositório público de um manual desta série · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Commits e GitHub Actions: o histórico na web e um <em>workflow</em> que confere o repositório a cada push (integração contínua)</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_03_repo_commits.jpg" width="1920" height="938" alt="Lista de commits de um repositório público no GitHub, com mensagem, autor, data e identificador de cada commit"></div><figcaption><b>Figura 17</b> A lista de commits do mesmo repositório (captura de 09/09/2026): é o <code>git log</code> na web — mensagem, autor, data e identificador; cada linha abre o <em>diff</em> daquele commit.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_04_repo_actions.jpg" width="1920" height="938" alt="Aba Actions de um repositório público no GitHub com o workflow verificar executado"></div><figcaption><b>Figura 18</b> A aba «Actions» do mesmo repositório (captura de 09/09/2026): o <em>workflow</em> «verificar» (arquivo <code>verificar.yml</code>) rodou a cada push — o GitHub executou um script de conferência numa máquina virtual e registrou o resultado.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">.github/workflows/verificar.yml — um workflow mínimo que roda o checar_repo.py a cada push (exemplo ilustrativo; sintaxe em docs.github.com/pt/actions)</div><pre>name: verificar
+on: [push, pull_request]
+jobs:
+  checar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/checar_repo.py .</pre></div>
+      </div>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:170px">Termo</th><th>O que é</th></tr></thead><tbody>
+          <tr><td><b>CI (integração contínua)</b></td><td>Rodar conferências e testes automaticamente a cada commit enviado</td></tr>
+          <tr><td><b>GitHub Actions</b></td><td>O serviço de CI do GitHub: arquivos YAML em <code>.github/workflows/</code>; 2.000 minutos por mês no plano Free</td></tr>
+          <tr><td><b>Workflow</b></td><td>Um arquivo YAML: quando rodar (<code>on</code>), em que máquina (<code>runs-on</code>) e os passos (<code>steps</code>)</td></tr>
+          <tr><td><b>Status</b></td><td>Verde ou vermelho ao lado de cada commit e em cada pull request</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Para a pesquisa, um <em>workflow</em> que rode a auditoria (<code>checar_repo.py</code>) e, se houver, os testes do código já vale: um push com segredo ou com arquivo grande fica vermelho antes de alguém clonar. Compilar o LaTeX ou reexecutar a análise no Actions é o passo seguinte, quando o projeto estabilizar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s23" data-title="Issues e pull requests">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>6 de 12 · docs.github.com/pt «Sobre problemas» e «Solicitações de pull» · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Issues e pull requests: a lista de tarefas do projeto e a proposta de mudança com revisão</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_26_docs_issues.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Sobre problemas, explicando o uso de issues para rastrear tarefas, bugs e ideias"></div><figcaption><b>Figura 19</b> «Sobre problemas» (issues), em docs.github.com/pt (captura de 09/09/2026): as issues rastreiam tarefas, bugs e ideias no repositório — cada uma com título, texto, comentários, etiquetas e responsável.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_25_docs_pull_requests.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Solicitações de pull, explicando como propor mudanças de um branch para outro com revisão"></div><figcaption><b>Figura 20</b> «Solicitações de pull», em docs.github.com/pt (captura de 09/09/2026): uma pull request propõe as mudanças de um branch para outro, com discussão e revisão antes do <em>merge</em> — o que o «Olá, Mundo» fez pelo navegador (Figura 13).</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:170px">Na pesquisa</th><th>Use assim</th></tr></thead><tbody>
+        <tr><td><b><span class="gterm" tabindex="0" data-t="Issue" data-d="Item de acompanhamento no repositório: tarefa, dúvida, erro; numerada, com comentários e responsável.">Issue</span> como tarefa</b></td><td>«Refazer a Tabela 3 com os dados de 2025», «Conferir a NBR 6023 nas referências» — numerada, atribuída, fechada quando resolvida; o commit pode citar «#12»</td></tr>
+        <tr><td><b><span class="gterm" tabindex="0" data-t="Issue" data-d="Item de acompanhamento no repositório: tarefa, dúvida, erro; numerada, com comentários e responsável.">Issue</span> como dúvida do orientador</b></td><td>Um comentário por trecho, fora do e-mail, com histórico</td></tr>
+        <tr><td><b>Pull request</b></td><td>O branch <code>revisao-capitulo-2</code> vira uma PR: o orientador lê o <em>diff</em>, comenta linha a linha, e o <em>merge</em> acontece na web</td></tr>
+        <tr><td><b>Sozinho no projeto</b></td><td>Issues ainda valem como lista de pendências; a PR é opcional — o <em>merge</em> local (Figura 7) faz o mesmo</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Issues e pull requests são públicas num repositório público: nada de dado de participante, nem de nome de avaliador, nem de trecho de artigo de base paga nos comentários. O que precisa ficar restrito fica no repositório privado ou fora do GitHub.</p></div>
+        <div class="note"><span class="blabel"><span class="gterm" tabindex="0" data-t="Fork" data-d="Cópia de um repositório de outra pessoa na sua conta, para propor mudanças por pull request.">Fork</span></span><p>Para colaborar num repositório de outra pessoa sem permissão de escrita, faz-se um fork (cópia na sua conta), trabalha-se num branch e abre-se a pull request de volta — é como se contribui para pacotes de código aberto.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s24" data-title="GitHub Desktop e VS Code">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>7 de 12 · github.com/apps/desktop · code.visualstudio.com/docs/sourcecontrol · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Sem terminal: o GitHub Desktop e a visão «Source Control» do VS Code fazem os mesmos commits e pushes</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_09_desktop.jpg" width="1920" height="938" alt="Página do GitHub Desktop com o slogan Experimente o Git sem complicações e o botão de download"></div><figcaption><b>Figura 21</b> github.com/apps/desktop (captura de 09/09/2026): «Experimente o Git sem complicações». Cliente gráfico de código aberto (MIT), release 3.6.5 (04/09/2026), para Windows e macOS: clonar, ver mudanças, fazer commit, push e pull com botões.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_20_vscode_scm.jpg" width="1920" height="938" alt="Documentação Source control in VS Code, com a visão Source Control, o staging por arquivo e o commit com mensagem"></div><figcaption><b>Figura 22</b> «Source control in VS Code» (captura de 09/09/2026): a visão «Source Control» (ícone na barra lateral; Ctrl+Shift+G) lista as mudanças; o «+» ao lado do arquivo faz o <em>staging</em> (também por trecho, na visão de diff); o commit leva a mensagem; a barra de status mostra a sincronização e os commits de entrada e saída.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:190px">Ferramenta</th><th>Vantagens</th><th>O que saber</th></tr></thead><tbody>
+        <tr><td><b>GitHub Desktop</b></td><td>Tudo por botões; <em>diff</em> visual; integra a conta do GitHub</td><td>Windows e macOS; código aberto sob MIT; release 3.6.5</td></tr>
+        <tr><td><b>VS Code</b></td><td>O editor onde você já escreve o <code>.tex</code> ou o <code>.py</code>; <em>staging</em> por arquivo ou por trecho; troca de branches; gráfico de commits e Timeline por arquivo; extensão «GitHub Pull Requests and Issues» para revisar PRs no editor</td><td>Exige Git ≥ 2.0.0 instalado e <code>user.name</code>/<code>user.email</code> configurados; há geração de mensagem de commit por IA</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Interface gráfica e terminal fazem a mesma coisa no mesmo repositório: use o VS Code no dia a dia e o terminal quando precisar de um comando que o botão não tem (tags anotadas, <code>rm --cached</code>, os scripts da Parte 5). Aprender os comandos primeiro (Parte 2) é o que faz os botões fazerem sentido.</p></div>
+        <div class="note"><span class="blabel">Linux</span><p>A página do GitHub Desktop não lista plataformas; o repositório distribui para Windows e macOS. No Linux, o VS Code, o terminal e a <span class="gterm" tabindex="0" data-t="GitHub CLI (gh)" data-d="O GitHub no terminal: repositórios, issues, pull requests, releases; v2.100.0.">GitHub CLI</span> cobrem tudo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s25" data-title="GitHub CLI e Codespaces">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>8 de 12 · cli.github.com · github.com/features/codespaces · capturas de 09/09/2026</span></div>
+    <h2 class="rv">GitHub CLI (<code>gh</code>) e Codespaces: o GitHub no terminal e um computador de desenvolvimento no navegador</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_33_gh_cli.jpg" width="1920" height="938" alt="Página da GitHub CLI com o slogan GitHub CLI brings GitHub to your terminal e os comandos de instalação"></div><figcaption><b>Figura 23</b> cli.github.com (captura de 09/09/2026): «GitHub CLI brings GitHub to your terminal. Free and open source» — repositórios, issues, pull requests, releases, checks e aliases pelo terminal; instalação por <code>brew install gh</code>, WinGet, apt/dnf/zypper; versão v2.100.0 (03/09/2026). Nesta máquina: gh 2.46.0.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_27_codespaces.jpg" width="1920" height="938" alt="Página do GitHub Codespaces apresentando o ambiente de desenvolvimento hospedado na nuvem"></div><figcaption><b>Figura 24</b> github.com/features/codespaces (captura de 09/09/2026): «ambiente de desenvolvimento hospedado na nuvem», usado pelo navegador, pelo VS Code ou pela CLI; em contas pessoais, 120 horas-núcleo e 15 GB por mês no plano Free.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — o que a GitHub CLI faz sem abrir o navegador (a sintaxe completa está em cli.github.com/manual)</div><pre>gh repo create minha-pesquisa --private --source=. --push   # cria o repositório no GitHub a partir da pasta e faz o push
+gh issue create --title "Refazer a Tabela 3"                 # abre uma issue
+gh pr create                                                  # abre a pull request do branch atual
+gh release create v0.2 --notes "Repositório pronto para publicar"   # publica uma release (Parte 4)</pre></div>
+      </div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>A CLI é o caminho mais curto de «pasta no computador» para «repositório no GitHub» sem clicar em formulário — e o que o plugin da Parte 5 usa quando o aluno pede para criar o repositório ou a release. Confira cada comando na página do manual antes de rodar: a sintaxe acima é a da documentação, não foi executada na demonstração.</p></div>
+        <div class="note"><span class="blabel">Codespaces na pesquisa</span><p>Serve para rodar um script ou compilar o LaTeX num computador emprestado, sem instalar nada: o repositório abre num VS Code no navegador. A cota gratuita mensal (120 horas-núcleo, 15 GB) acaba; não é lugar para dados sensíveis, que não devem estar no repositório de qualquer forma.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s26" data-title="GitHub Pages">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>9 de 12 · docs.github.com/pt «O que é o GitHub Pages?» · captura de 09/09/2026</span></div>
+    <h2 class="rv">GitHub Pages: um site estático a partir do repositório — a página do projeto, a documentação, o manual</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_18_docs_pages.jpg" width="1920" height="938" alt="Documentação do GitHub em português, O que é o GitHub Pages, explicando a hospedagem de sites estáticos a partir de um repositório"></div><figcaption><b>Figura 25</b> «O que é o GitHub Pages?», em docs.github.com/pt (captura de 09/09/2026): hospedagem de site estático (HTML, CSS, JavaScript) publicado diretamente de um repositório; gratuito em repositórios públicos no plano Free.</figcaption></figure>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Item (docs, 09/09/2026)</th><th>Valor</th></tr></thead><tbody>
+          <tr><td><b>Site de usuário</b></td><td>Repositório <code>&lt;owner&gt;.github.io</code> → <code>https://&lt;owner&gt;.github.io</code>; um por conta</td></tr>
+          <tr><td><b>Site de projeto</b></td><td><code>https://&lt;owner&gt;.github.io/&lt;repo&gt;</code>; um por repositório</td></tr>
+          <tr><td><b>Domínio próprio</b></td><td>Opcional</td></tr>
+          <tr><td><b>Limites</b></td><td>Repositório recomendado ≤ 1 GB; site ≤ 1 GB; largura de banda flexível de 100 GB/mês; 10 builds por hora (salvo com Actions próprio)</td></tr>
+          <tr><td><b>Proibido</b></td><td>Uso comercial e e-commerce; envio de senhas ou cartões; os IPs dos visitantes são registrados</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Para a pesquisa, o Pages publica a página do projeto (o README com um índice), a documentação de um pacote ou um relatório em HTML. Dados de participantes e resultados sob embargo não entram: o site é público e o repositório também. Um formulário de coleta de dados no Pages viola a regra de não receber senhas ou cartões e, mais importante, a LGPD.</p></div>
+        <div class="note"><span class="blabel">Tela logada</span><p>A ativação fica nas configurações do repositório, que exigem login e não foram capturadas: consulte «O que é o <span class="gterm" tabindex="0" data-t="GitHub Pages" data-d="Hospedagem gratuita de site estático a partir de um repositório público (https://&lt;owner&gt;.github.io/&lt;repo&gt;).">GitHub Pages</span>?» e os guias vizinhos em docs.github.com/pt.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s27" data-title="Arquivos grandes e Git LFS">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>10 de 12 · docs.github.com/pt «Sobre arquivos grandes no GitHub» · git-lfs.com · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Arquivos grandes e Git LFS: 50 MiB avisa, 100 MiB bloqueia — e o LFS guarda o conteúdo fora do histórico</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_16_docs_arquivos_grandes.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Sobre arquivos grandes no GitHub, com os limites de tamanho por arquivo e por repositório"></div><figcaption><b>Figura 26</b> «Sobre arquivos grandes no GitHub», em docs.github.com/pt (captura de 09/09/2026): aviso acima de 50 MiB, bloqueio acima de 100 MiB, 25 MiB pelo navegador; repositório idealmente abaixo de 1 GB e «fortemente recomendado» abaixo de 5 GB.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_34_git_lfs.jpg" width="1920" height="938" alt="Página do Git Large File Storage com a descrição da ferramenta e os comandos git lfs install e git lfs track"></div><figcaption><b>Figura 27</b> git-lfs.com (captura de 09/09/2026): o Git LFS «substitui arquivos grandes como amostras de áudio, vídeos, conjuntos de dados e gráficos por ponteiros de texto dentro do Git, guardando o conteúdo num servidor remoto»; versão v3.8.0 (28/08/2026).</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — Git LFS (git-lfs.com; não executado na demonstração: nesta máquina o LFS não está instalado)</div><pre>git lfs install                 # uma vez por máquina (Windows: instalador; macOS: brew install git-lfs; Linux: PackageCloud ou tarball)
+git lfs track "*.psd"           # ou "*.mp4", "dados/*.parquet": grava a regra em .gitattributes
+git add .gitattributes
+git add dados/amostras.parquet  # commit e push normais: o Git guarda o ponteiro, o LFS o conteúdo
+git commit -m "Amostras via LFS"</pre></div>
+      </div>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Git LFS no GitHub (docs de cobrança)</th><th>Valor</th></tr></thead><tbody>
+          <tr><td><b>Free e Pro</b></td><td>10 GiB de armazenamento e 10 GiB de largura de banda</td></tr>
+          <tr><td><b>Team e Enterprise Cloud</b></td><td>250 GiB</td></tr>
+          <tr><td><b>Excedente</b></td><td>Cobrado por GiB baixado e por hora de armazenamento (calculadora de preços do GitHub)</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Antes do LFS, pergunte se o arquivo precisa estar no repositório: dado bruto grande pertence a um repositório de dados (OSF, Zenodo, o da instituição) com DOI, e o Git guarda o script que o lê. O LFS é para o que precisa acompanhar o código e cabe na cota. Um arquivo acima de 100 MiB já commitado bloqueia o push: tire-o do histórico antes de enviar — o <code>checar_repo.py</code> e o <code>salvar_versao.sh</code> recusam esses arquivos.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s28" data-title="Overleaf: Git e GitHub Sync são pagos">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>11 de 12 · docs.overleaf.com «Git integration and GitHub synchronization» · captura de 09/09/2026</span></div>
+    <h2 class="rv">Overleaf: a integração Git e o GitHub Synchronization são recursos premium — no plano gratuito, «Download → Source» e commit local</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_19_overleaf_git.jpg" width="1920" height="938" alt="Documentação do Overleaf sobre Git integration e GitHub synchronization, indicando que são recursos premium e como clonar o projeto"></div><figcaption><b>Figura 28</b> «Git integration and GitHub synchronization», em docs.overleaf.com (captura de 09/09/2026): ambos são recursos premium (Overleaf Cloud pago; Server Pro 4.0+ para Git). Clone: <code>https://git.overleaf.com/&lt;ID_DO_PROJETO&gt;</code>, com autenticação por token criado nas configurações da conta.</figcaption></figure>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Recurso</th><th>Como (conforme a documentação)</th><th style="width:110px">Plano</th></tr></thead><tbody>
+          <tr><td><b>Git integration</b></td><td>Menu → Sync → Git; clonar <code>https://git.overleaf.com/&lt;ID_DO_PROJETO&gt;</code> com o token; o branch chama-se <code>main</code>; <strong>não suporta</strong> branches, Git LFS, tags nem submodules; symlinks viram arquivos</td><td><span class="pill p-amber">premium</span></td></tr>
+          <tr><td><b>GitHub Synchronization</b></td><td>Liga um projeto Overleaf a um repositório GitHub e os mantém sincronizados</td><td><span class="pill p-amber">premium (Overleaf Cloud)</span></td></tr>
+          <tr><td><b>Plano gratuito</b></td><td>«Download → Source» (zip) → descompactar na pasta do repositório local → <code>git add</code>, <code>git commit</code>, <code>git push</code></td><td><span class="pill p-go">gratuito</span></td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>No gratuito, o Overleaf é o editor e o Git é o histórico: baixe o «Source» ao fim de cada sessão de escrita, faça o commit e o push. As tags por marco (qualificação, defesa) só existem no Git — a integração premium do Overleaf não as suporta. O manual irmão de <a href="https://latex.mirandastech.com.br/">LaTeX</a> detalha o editor e os planos.</p></div>
+        <div class="note"><span class="blabel">Token</span><p>O token do Overleaf é uma credencial: fica no gerenciador de credenciais do Git ou é digitado a cada <span class="gterm" tabindex="0" data-t="Push · pull · clone" data-d="push envia commits ao remoto; pull traz os do remoto; clone cria um repositório local a partir de um remoto.">clone</span> — nunca num arquivo do repositório.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s29" data-title="OSF: o add-on GitHub">
+  <div class="inner">
+    <div class="kicker-part rv">GitHub<span>12 de 12 · help.osf.io «Connect GitHub to a project» · sem captura: a página redirecionou para uma página de transição em 09/09/2026</span></div>
+    <h2 class="rv">OSF: o add-on GitHub liga um repositório a um projeto do Open Science Framework — sincroniza os arquivos, não faz backup</h2>
+    <div class="two rv">
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt">Projeto → «Add-ons»</span><span class="nd">No projeto do OSF, a seção «Add-ons» → «Additional Storage»</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt">«Connect» em GitHub</span><span class="nd">Nome da conta → «Authorize» → login no GitHub → «Authorize CenterForOpenScience»</span></div>
+          <div class="node"><span class="nn">3</span><span class="nt">Escolher o repositório</span><span class="nd">Um repositório por projeto do OSF</span></div>
+          <div class="node gate"><span class="nn">4</span><span class="nt">«Files»</span><span class="nd">Os arquivos do repositório aparecem na seção «Files» do projeto, com sincronização bidirecional</span></div>
+        </div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Limite (help.osf.io)</th><th>Valor</th></tr></thead><tbody>
+          <tr><td><b>Repositórios por projeto</b></td><td>Um</td></tr>
+          <tr><td><b>Backup</b></td><td>O OSF <strong>não faz backup</strong> do conteúdo do add-on: o que está no GitHub continua só no GitHub</td></tr>
+          <tr><td><b>Arquivo enviado do OSF para o GitHub</b></td><td>Até 100 MB</td></tr>
+        </tbody></table></div>
+      </div>
+      <div>
+        <p class="lead">O <strong>Open Science Framework</strong> é onde muitos programas pedem o pré-registro e o depósito de materiais. Com o add-on, o código e os scripts continuam versionados no GitHub e ficam visíveis no projeto do OSF, ao lado dos dados e do pré-registro — sem duplicar arquivos à mão.</p>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Divida por natureza: dados (brutos anonimizados, derivados, dicionário de variáveis) no armazenamento do OSF ou num repositório de dados com DOI; código, scripts e texto no GitHub, ligado ao projeto pelo add-on. O add-on não substitui o DOI do código — esse vem do Zenodo (Parte 4).</p></div>
+        <div class="note"><span class="blabel">Conforme a documentação</span><p>Os nomes «Add-ons», «Additional Storage», «Connect», «Authorize» e «Authorize CenterForOpenScience» são os de help.osf.io em 09/09/2026; o manual não fez login no OSF nem no GitHub para conferir a tela.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 4 ===================== -->
+<section class="slide divider" id="s30" data-title="Parte 4 · Publicar: README, licença, citação e DOI"><div class="inner"><div class="kicker-part rv">Parte 4<span>Publicar: README, licença, citação e DOI</span></div><h2 class="rv">README; licença; CITATION.cff e «Cite this repository»; cffinit; releases; DOI pelo Zenodo em dois slides; GitLab como alternativa</h2><p class="rv">O repositório vira algo citável em quatro arquivos e dois cliques: README, LICENSE, <code>CITATION.cff</code> e uma <em>release</em> que o Zenodo arquiva com DOI. Tudo conferido em docs.github.com/pt, choosealicense.com, citation-file-format.github.io e help.zenodo.org em 09/09/2026, sem login.</p></div><div class="num">04</div></section>
+
+<section class="slide" id="s31" data-title="README">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>1 de 8 · docs.github.com/pt «Sobre o arquivo README do repositório» · captura de 09/09/2026</span></div>
+    <h2 class="rv">README: o que o projeto faz, por que é útil, como começar, onde obter ajuda e quem mantém — em Markdown, na raiz</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_37_docs_readme.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Sobre o arquivo README do repositório, com o que um README deve conter e onde o GitHub o procura"></div><figcaption><b>Figura 29</b> «Sobre o arquivo README do repositório», em docs.github.com/pt (captura de 09/09/2026): o GitHub procura o README em <code>.github/</code>, na raiz ou em <code>docs/</code> (nessa ordem); gera um sumário automático; acima de 500 KiB o arquivo é truncado; um README num repositório com o nome do usuário aparece no perfil.</figcaption></figure>
+      <div>
+        <div class="code"><div class="code-head">README.md — esqueleto para um projeto de pesquisa (Markdown; o GitHub renderiza)</div><pre># Manutenção preditiva em guindastes portuários: dados e scripts
+
+Scripts e dados derivados da dissertação «…» (versão 0.2, set. 2026).
+
+## O que há aqui
+- `01_buscas/` — diário de busca e estratégias por base
+- `06_texto/` — o texto em LaTeX
+- `scripts/` — `checar_repo.py`, `citacao_cff.py`, `salvar_versao.sh`
+
+## Como reproduzir
+1. `git clone https://github.com/&lt;usuário&gt;/minha-pesquisa.git`
+2. `python3 scripts/checar_repo.py .`
+
+## Dados
+Os dados brutos não estão neste repositório (LGPD); os derivados
+estão em `dados/` sob CC BY 4.0. Contato: e-mail institucional.
+
+## Como citar
+Veja `CITATION.cff` ou o botão «Cite this repository».
+
+## Licença
+CC BY 4.0 (texto e dados) — ver `LICENSE`.</pre></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Cinco perguntas, na ordem da documentação: o que faz, por que é útil, como começar, onde obter ajuda, quem mantém. Um README que diz onde os dados estão (e por que não estão aqui) evita a issue mais comum de um revisor. O <code>checar_repo.py</code> avisa quando o README falta.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s32" data-title="Licença">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>2 de 8 · choosealicense.com · captura de 09/09/2026</span></div>
+    <h2 class="rv">Licença: sem um arquivo LICENSE ninguém pode reutilizar legalmente — MIT, GPLv3 ou Apache 2.0 para código; CC BY 4.0 para dados e texto</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_14_choosealicense.jpg" width="1920" height="938" alt="Página choosealicense.com com as licenças MIT e GNU GPLv3 em destaque e os links para outras licenças e para projetos que não são software"></div><figcaption><b>Figura 30</b> choosealicense.com (captura de 09/09/2026): em destaque, MIT («short and to the point»; permite quase tudo, inclusive versões fechadas) e GNU GPLv3 (igual, «except distributing closed source versions»); Apache 2.0 na página de licenças; as seções «I don't want to choose a license» e «My project isn't software». O site é CC BY.</figcaption></figure>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:150px">Licença</th><th>Para</th><th>O que permite (choosealicense.com)</th></tr></thead><tbody>
+          <tr><td><b>MIT</b></td><td>Código</td><td>Curta e direta; quase tudo, inclusive versões fechadas; exige manter o aviso de copyright</td></tr>
+          <tr><td><b>GNU GPLv3</b></td><td>Código</td><td>O mesmo, exceto distribuir versões fechadas: quem redistribui precisa abrir o código</td></tr>
+          <tr><td><b>Apache 2.0</b></td><td>Código</td><td>Permissiva; listada na página de licenças do site — leia o texto antes de escolher</td></tr>
+          <tr><td><b>CC BY 4.0</b></td><td>Dados, texto, figuras</td><td>«My project isn't software»: uso, cópia e adaptação com atribuição — a licença desta série</td></tr>
+          <tr><td><b>Nenhuma</b></td><td>—</td><td>«I don't want to choose a license»: sem licença, ninguém pode legalmente reutilizar, mesmo com o repositório público</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Um arquivo <code>LICENSE</code> na raiz com o texto integral da licença (copie de choosealicense.com — na demonstração, a CC BY 4.0 veio do repositório github/choosealicense.com). Código e dados no mesmo repositório podem ter licenças diferentes: diga no README qual vale para o quê. Licença é condição para o DOI pelo Zenodo (slide «DOI pelo Zenodo»).</p></div>
+        <div class="note"><span class="blabel">Não é aconselhamento jurídico</span><p>A escolha depende do programa, do financiador e de coautores; dados de terceiros e artigos de bases pagas têm licença própria e não entram no repositório. Em dúvida, pergunte à instituição.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s33" data-title="CITATION.cff e «Cite this repository»">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>3 de 8 · docs.github.com/pt «Sobre os arquivos de CITATION» · citation-file-format.github.io · capturas de 09/09/2026</span></div>
+    <h2 class="rv"><code>CITATION.cff</code>: um arquivo na raiz e o GitHub mostra «Cite this repository», com APA e BibTeX prontos</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_13_docs_citation_cff.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Sobre os arquivos de CITATION, com um exemplo de CITATION.cff e a explicação do botão Cite this repository"></div><figcaption><b>Figura 31</b> «Sobre os arquivos de CITATION», em docs.github.com/pt (captura de 09/09/2026): com um <code>CITATION.cff</code> na raiz, a barra lateral do repositório ganha o botão «Cite this repository», com exportação em APA e BibTeX; <code>preferred-citation</code> aponta para o artigo quando se quer que citem o artigo, não o software.</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_29_cff_site.jpg" width="1920" height="938" alt="Site do Citation File Format, citation-file-format.github.io, com a descrição do formato, a versão 1.2.0 e as ferramentas cffinit e cff-converter-python"></div><figcaption><b>Figura 32</b> citation-file-format.github.io (captura de 09/09/2026): Citation File Format, versão 1.2.0; ferramentas <strong>cffinit</strong> (formulário web) e <strong>cff-converter-python</strong> (<code>cffconvert</code>, para BibTeX, RIS e CodeMeta); o arquivo é lido pelo GitHub, pelo Zenodo e pelo Zotero.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">CITATION.cff — o gerado na demonstração pelo citacao_cff.py (Figura 40); campos básicos da documentação</div><pre>cff-version: 1.2.0
+message: "Se você usar este software ou material, cite-o como abaixo."
+title: "Manutenção preditiva em guindastes portuários: dados e scripts"
+version: "0.1"
+date-released: 2026-09-09
+authors:
+  - family-names: "Exemplo"
+    given-names: "Aluna"
+url: "https://github.com/aluna/minha-pesquisa"
+license: CC-BY-4.0</pre></div>
+      </div>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:170px">Campo</th><th>O que é</th></tr></thead><tbody>
+          <tr><td><code>cff-version</code></td><td>Versão do formato: 1.2.0</td></tr>
+          <tr><td><code>message</code></td><td>O pedido de citação que o leitor vê</td></tr>
+          <tr><td><code>authors</code></td><td>Lista com <code>family-names</code> e <code>given-names</code> (e, se houver, <code>orcid</code>)</td></tr>
+          <tr><td><code>title</code> · <code>version</code></td><td>Título e versão citadas; <code>date-released</code>, <code>url</code>, <code>license</code> e <code>doi</code> completam</td></tr>
+          <tr><td><code>preferred-citation</code></td><td>Quando há artigo: os metadados do artigo, para que o botão cite o artigo</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Um <code>CITATION.cff</code> por repositório, na raiz, atualizado a cada <em>release</em> (versão, data e, depois do Zenodo, o DOI). O Zenodo lê o arquivo para preencher os metadados do registro; o Zotero o importa. O <code>citacao_cff.py</code> (Parte 5) gera o arquivo e imprime o BibTeX e a referência ABNT para conferir com a biblioteca.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s34" data-title="cffinit: o formulário web">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>4 de 8 · citation-file-format.github.io/cff-initializer-javascript · captura de 09/09/2026</span></div>
+    <h2 class="rv">cffinit: o formulário web que monta ou atualiza o <code>CITATION.cff</code> sem escrever YAML à mão</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_30_cffinit.jpg" width="1920" height="938" alt="Página do cffinit com os botões Create e Update para criar ou atualizar um arquivo CITATION.cff"></div><figcaption><b>Figura 33</b> cffinit (captura de 09/09/2026): «Create» começa um arquivo novo; «Update» carrega um <code>CITATION.cff</code> existente para editar. O formulário guia campo a campo e entrega o arquivo pronto para salvar na raiz do repositório.</figcaption></figure>
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt">«Create» ou «Update»</span><span class="nd">Novo, ou carregando o arquivo que já existe no repositório</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt">Preencher</span><span class="nd">Os campos do formato: título, autores (<code>family-names</code>, <code>given-names</code>), versão, data, licença, URL, DOI se já houver</span></div>
+          <div class="node"><span class="nn">3</span><span class="nt">Baixar</span><span class="nd">O <code>CITATION.cff</code> gerado; salve na raiz do repositório</span></div>
+          <div class="node gate"><span class="nn">4</span><span class="nt">Commit e push</span><span class="nd"><code>git add CITATION.cff</code> → commit → push; o botão «Cite this repository» aparece</span></div>
+        </div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Ferramenta</th><th>Quando</th></tr></thead><tbody>
+          <tr><td><b>cffinit</b> (web)</td><td>Primeira vez, ou para quem prefere formulário; valida o arquivo</td></tr>
+          <tr><td><b><code>citacao_cff.py</code></b> (Parte 5)</td><td>Pelo terminal, com BibTeX e ABNT impressos; recusa sobrescrever sem <code>--forcar</code></td></tr>
+          <tr><td><b><code>cffconvert</code></b> (cff-converter-python)</td><td>Converter o <code>.cff</code> para BibTeX, RIS ou CodeMeta</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Os autores do <code>CITATION.cff</code> são os autores do <em>repositório</em> (quem escreveu o código e organizou os dados), não necessariamente os do artigo — para o artigo há o <code>preferred-citation</code>. Use o ORCID de cada autor: é o que liga o DOI do Zenodo ao perfil.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s35" data-title="Releases">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>5 de 8 · docs.github.com/pt «Gerenciar versões em repositórios» · capturas de 09/09/2026</span></div>
+    <h2 class="rv">Releases: «Versões» → «Rascunho de uma nova versão» → tag → título → notas → «Publicar versão» — cada release traz ZIP e tar.gz do código</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_32_docs_releases.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Gerenciar versões em repositórios, com os passos para criar uma release"></div><figcaption><b>Figura 34</b> «Gerenciar versões em repositórios», em docs.github.com/pt (captura de 09/09/2026): «Versões» → «Rascunho de uma nova versão» → «Escolher uma marca» (tag existente ou nova) → «Título da versão» → «Descrever esta versão» (ou «Gerar notas de lançamento») → anexos opcionais → «Este é um pré-lançamento» → «Definir como versão mais recente» → «Publicar versão» ou «Salvar rascunho».</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_24_releases_exemplo.jpg" width="1920" height="938" alt="Página de releases de um projeto de terceiros no GitHub, com notas de lançamento, anexos e os arquivos Source code zip e tar.gz"></div><figcaption><b>Figura 35</b> A página de releases de um projeto de terceiros — a GitHub CLI (captura de 09/09/2026): cada versão com notas, anexos e, automaticamente, «Source code (zip)» e «Source code (tar.gz)». É a aparência que o seu repositório terá depois da primeira release.</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:230px">Passo (docs, 09/09/2026)</th><th>O que fazer</th></tr></thead><tbody>
+        <tr><td><b>«Versões» → «Rascunho de uma nova versão»</b></td><td>Na página do repositório</td></tr>
+        <tr><td><b>«Escolher uma marca»</b></td><td>A tag anotada que você enviou com <code>--follow-tags</code> (<code>v0.2</code>), ou uma nova criada ali</td></tr>
+        <tr><td><b>«Título da versão» · «Descrever esta versão»</b></td><td>O que mudou desde a anterior; o botão «Gerar notas de lançamento» escreve as notas automaticamente</td></tr>
+        <tr><td><b>Anexos</b></td><td>Opcionais: o PDF da dissertação, uma planilha de resultados</td></tr>
+        <tr><td><b>«Publicar versão»</b></td><td>A release fica pública; se o Zenodo estiver ligado, o DOI é emitido (slides seguintes)</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Uma release por marco citável: a versão do código que gerou os resultados do artigo, a versão depositada com a dissertação. A tag no Git (Parte 2) é o ponto fixo; a release é a tag com nome, notas e anexos — e é ela que o Zenodo arquiva. «Este é um pré-lançamento» serve para versões em revisão.</p></div>
+        <div class="note"><span class="blabel">Pelo terminal</span><p><code>gh release create v0.2 --notes "…"</code> (<span class="gterm" tabindex="0" data-t="GitHub CLI (gh)" data-d="O GitHub no terminal: repositórios, issues, pull requests, releases; v2.100.0.">GitHub CLI</span>) faz o mesmo sem abrir o navegador.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s36" data-title="DOI pelo Zenodo: condições">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>6 de 8 · docs.github.com/pt «Referenciar e citar conteúdo» · zenodo.org · capturas de 09/09/2026</span></div>
+    <h2 class="rv">DOI pelo Zenodo: repositório público, com licença, ligado à conta — e cada release ganha um DOI</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_12_docs_zenodo_doi.jpg" width="1920" height="938" alt="Documentação do GitHub em português, Referenciar e citar conteúdo, com os passos para emitir um DOI pelo Zenodo"></div><figcaption><b>Figura 36</b> «Referenciar e citar conteúdo», em docs.github.com/pt (captura de 09/09/2026): condições — repositório público e com licença; passos — zenodo.org → «Entrar com GitHub» → «Autorizar Zenodo» → página GitHub do Zenodo → alternar o repositório para «Ativado»; «o Zenodo arquiva seu repositório e emite um novo DOI sempre que você cria uma versão (release) do GitHub».</figcaption></figure>
+      <figure><div class="shot"><img src="capturas/gh_36_zenodo_home.jpg" width="1920" height="938" alt="Página inicial do Zenodo, repositório de pesquisa aberto que emite DOI"></div><figcaption><b>Figura 37</b> zenodo.org (captura de 09/09/2026): o repositório aberto que arquiva o código, os dados e o texto e emite o DOI — o mesmo que registra o <em>The Turing Way</em> (DOI 10.5281/zenodo.3332807).</figcaption></figure>
+    </div>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:190px">Condição</th><th>Por quê</th></tr></thead><tbody>
+        <tr><td><b>Repositório público</b></td><td>O Zenodo só arquiva o que pode ler; um repositório privado não recebe DOI por esta via</td></tr>
+        <tr><td><b>Arquivo LICENSE</b></td><td>É a segunda condição da documentação do GitHub: o registro arquivado precisa dizer sob que termos pode ser reutilizado</td></tr>
+        <tr><td><b>Conta no Zenodo ligada ao GitHub</b></td><td>«Entrar com GitHub» → «Autorizar Zenodo»: é o que permite ao Zenodo ver as releases</td></tr>
+        <tr><td><b>Uma release</b></td><td>O DOI é emitido por release, não por commit; a primeira release depois de «Ativado» gera o primeiro DOI</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Ordem: LICENSE e <code>CITATION.cff</code> no repositório → repositório público → ligar no Zenodo → release. O <code>CITATION.cff</code> (ou um <code>.zenodo.json</code>) preenche os metadados do registro — título, autores com ORCID, licença — e evita corrigir à mão no Zenodo depois. Depois do DOI, coloque-o no <code>CITATION.cff</code> e no README.</p></div>
+        <div class="note"><span class="blabel">O que não está aqui</span><p>Limites de tamanho por registro no Zenodo não foram conferidos nesta data e não aparecem no manual. Telas logadas do Zenodo não foram capturadas: os nomes de botão são os da documentação do GitHub em português e de help.zenodo.org.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s37" data-title="DOI pelo Zenodo: passos">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>7 de 8 · help.zenodo.org «Enable a repository» · captura de 09/09/2026</span></div>
+    <h2 class="rv">DOI pelo Zenodo, passo a passo: perfil → GitHub → «Sync now» → ligar o controle deslizante → publicar a release</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_21_zenodo_github.jpg" width="1920" height="938" alt="Página Enable a repository da ajuda do Zenodo, com a captura do menu do perfil apontando para GitHub e a explicação do controle deslizante"></div><figcaption><b>Figura 38</b> «Enable a repository», em help.zenodo.org (captura de 09/09/2026): menu do perfil → GitHub → «Sync now» → ligar o controle deslizante do repositório; as novas releases «são automaticamente ingeridas e arquivadas»; metadados por <code>CITATION.cff</code> ou <code>.zenodo.json</code>; integração com o Software Heritage.</figcaption></figure>
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt">zenodo.org → «Entrar com GitHub»</span><span class="nd">→ «Autorizar Zenodo» (docs do GitHub em português)</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt">Perfil → GitHub</span><span class="nd">A página GitHub do Zenodo (zenodo.org/account/settings/github/) lista os seus repositórios; «Sync now» atualiza a lista</span></div>
+          <div class="node"><span class="nn">3</span><span class="nt">Ligar o controle deslizante</span><span class="nd">Alternar o repositório para «Ativado»</span></div>
+          <div class="node gate"><span class="nn">4</span><span class="nt">Publicar a release no GitHub</span><span class="nd">O Zenodo arquiva e emite o DOI; cada release seguinte ganha um DOI novo</span></div>
+        </div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Depois do DOI</th><th>Onde colocar</th></tr></thead><tbody>
+          <tr><td><b><code>CITATION.cff</code></b></td><td>Campo <code>doi</code>; commit → a próxima release já nasce com ele nos metadados</td></tr>
+          <tr><td><b>README</b></td><td>Na seção «Como citar»</td></tr>
+          <tr><td><b>Artigo ou dissertação</b></td><td>Na seção de disponibilidade de dados e código, e nas referências (a referência ABNT sai do <code>citacao_cff.py</code>)</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>O DOI aponta para o registro no Zenodo, não para o GitHub: mesmo que o repositório mude de nome ou saia do ar, o arquivo permanece. Cite a versão que gerou os resultados (o DOI daquela release), e não «o repositório».</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s38" data-title="GitLab como alternativa">
+  <div class="inner">
+    <div class="kicker-part rv">Publicar<span>8 de 8 · about.gitlab.com/pricing (pt) · captura de 09/09/2026</span></div>
+    <h2 class="rv">GitLab como alternativa: o mesmo Git por baixo, plano gratuito sem cartão — e muitas universidades hospedam o próprio</h2>
+    <div class="two rv">
+      <figure><div class="shot"><img src="capturas/gh_35_gitlab_pricing.jpg" width="1920" height="938" alt="Página de preços do GitLab em português com os planos Gratuito, Premium e Ultimate"></div><figcaption><b>Figura 39</b> about.gitlab.com/pricing em português (captura de 09/09/2026): «Gratuito» US$ 0 por usuário/mês, «Não é necessário cartão de crédito», «5 usuários por grupo de nível superior», «400 minutos de computação por mês», gerenciamento de código-fonte e CI/CD, «Armazenamento ajustável de 10 GiB»; «Premium» US$ 29 por usuário/mês cobrado anualmente; «Ultimate» sob consulta.</figcaption></figure>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Plano GitLab</th><th>O que inclui (pricing, 09/09/2026)</th></tr></thead><tbody>
+          <tr><td><b>Gratuito</b> (US$ 0)</td><td>5 usuários por grupo de nível superior; 400 minutos de computação por mês; código-fonte e CI/CD; armazenamento ajustável de 10 GiB; sem cartão de crédito</td></tr>
+          <tr><td><b>Premium</b> (US$ 29/usuário/mês, anual)</td><td>Recursos de equipe e de planejamento</td></tr>
+          <tr><td><b>Ultimate</b></td><td>Preço sob consulta na página</td></tr>
+        </tbody></table></div>
+        <div class="code"><div class="code-head">terminal — levar o mesmo repositório para o GitLab (ou para a instância da instituição)</div><pre>git remote add gitlab https://gitlab.com/&lt;usuário&gt;/minha-pesquisa.git
+git push -u gitlab main --follow-tags     # o histórico e as tags vão inteiros; o GitHub continua como origin</pre></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>Se a instituição hospeda um GitLab, ele pode ser o lugar do trabalho em andamento (privado, dentro da rede) e o GitHub o da publicação (público, com «Cite this repository» e Zenodo). Um repositório pode ter dois remotos; os comandos são os mesmos. O <em>Turing Way</em> cita ainda o Codeberg como alternativa comunitária.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 5 ===================== -->
+<section class="slide divider" id="s39" data-title="Parte 5 · Os scripts e o fechamento"><div class="inner"><div class="kicker-part rv">Parte 5<span>Os scripts e o fechamento</span></div><h2 class="rv"><code>checar_repo.py</code>, <code>citacao_cff.py</code> e <code>salvar_versao.sh</code>; o plugin; erros comuns; checklist; glossário; referências; como citar</h2><p class="rv">Três scripts curtos, rodados de verdade em 09/09/2026, fazem o que este manual pede antes de cada push: auditar o repositório, gerar o arquivo de citação e registrar a versão com tag. Depois, o que costuma dar errado, a lista para conferir, os termos e as fontes.</p></div><div class="num">05</div></section>
+
+<section class="slide" id="s40" data-title="checar_repo.py">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>1 de 10 · demonstração de 09/09/2026 · Python 3, só biblioteca padrão, só leitura</span></div>
+    <h2 class="rv"><code>checar_repo.py</code>: a auditoria antes do push — segredos, dados pessoais, arquivos grandes, README, LICENSE, CITATION.cff, remoto</h2>
+    <figure class="rv"><div class="shot"><img src="capturas/gh_t3_checar_repo_citacao.jpg" width="1920" height="1136" alt="Terminal: checar_repo.py encontra BLOQUEIO no .env e avisos de LICENSE, CITATION.cff e remoto ausentes; git rm --cached .env; citacao_cff.py grava CITATION.cff e imprime o BibTeX e a referência ABNT"></div><figcaption><b>Figura 40</b> A sessão de 09/09/2026 (saída real, caminho trocado por <code>/home/usuario</code>): <code>python3 scripts/checar_repo.py .</code> lista «5 arquivos rastreados», um <span style="color:var(--stop);font-weight:600">BLOQUEIO</span> («.env parece guardar segredo — tire do Git (<code>git rm --cached</code>) e troque a credencial») e três <span style="color:var(--amber);font-weight:600">AVISO</span>s (falta LICENSE, falta CITATION.cff, nenhum remoto configurado); depois do <code>git rm --cached .env</code> e do commit, o <code>citacao_cff.py</code> grava o <code>CITATION.cff</code> e imprime o BibTeX <code>@software</code> e a referência ABNT (slide seguinte).</figcaption></figure>
+    <div class="two rv">
+      <div class="tw"><table><thead><tr><th style="width:170px">O que confere</th><th>Como aparece</th></tr></thead><tbody>
+        <tr><td><b>Arquivos grandes</b></td><td>Rastreados acima de 50 MiB → AVISO; acima de 100 MiB → BLOQUEIO (os limites do GitHub); binários acima de 5 MiB → aviso</td></tr>
+        <tr><td><b>Segredos</b></td><td>Nomes (<code>.env</code>, <code>.pem</code>, <code>id_rsa</code>) e conteúdos (tokens <code>ghp_</code>, <code>AKIA</code>, <code>sk-</code>, chave privada PEM) → BLOQUEIO</td></tr>
+        <tr><td><b>Dados pessoais (LGPD)</b></td><td>Padrões de CPF e listas de e-mails em arquivos de texto; pastas de dados brutos (<code>dados_FORA_DO_GIT/</code> etc.) rastreadas</td></tr>
+        <tr><td><b>Publicação</b></td><td>Falta de README, LICENSE, <code>CITATION.cff</code> ou <code>.gitignore</code>; ausência de remoto; mudanças sem commit</td></tr>
+        <tr><td><b>Saída</b></td><td>«N bloqueio(s), M aviso(s)»; código de saída 1 se houver bloqueio — por isso serve no GitHub Actions (Figura 18)</td></tr>
+      </tbody></table></div>
+      <div>
+        <div class="code"><div class="code-head">terminal — uso</div><pre>python3 scripts/checar_repo.py .          # a pasta atual (ou o caminho de outro repositório)
+python3 scripts/checar_repo.py . &amp;&amp; git push --follow-tags   # só faz o push se não houver bloqueio</pre></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>O script só lê: não apaga, não faz commit, não envia nada. Um BLOQUEIO é decisão sua de resolver — na demonstração, <code>git rm --cached .env</code> tirou o arquivo do Git e a mensagem do commit registrou que a chave foi trocada. Os AVISOs de LICENSE e <code>CITATION.cff</code> sumiram na segunda auditoria (Figura 14), depois dos slides da Parte 4.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s41" data-title="citacao_cff.py">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>2 de 10 · demonstração de 09/09/2026 (Figura 40) · Python 3, só biblioteca padrão</span></div>
+    <h2 class="rv"><code>citacao_cff.py</code>: grava o <code>CITATION.cff</code> 1.2.0 e imprime o BibTeX <code>@software</code> e a referência ABNT para conferir com a biblioteca</h2>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — o comando da demonstração (Figura 40)</div><pre>python3 scripts/citacao_cff.py \
+    --titulo "Manutenção preditiva em guindastes portuários: dados e scripts" \
+    --autores "Exemplo, Aluna" \
+    --versao 0.1 --data 2026-09-09 \
+    --licenca CC-BY-4.0 \
+    --url https://github.com/aluna/minha-pesquisa
+# gravado: CITATION.cff
+# depois do Zenodo: --doi 10.5281/zenodo.NNNNNNN --forcar  (regrava com o DOI)</pre></div>
+        <div class="code"><div class="code-head">saída — o que o script imprime depois do arquivo (Figura 40)</div><pre>BibTeX (@software, como o GitHub gera):
+@software{exemplo2026,
+  author = {Exemplo, Aluna},
+  title = {Manutenção preditiva em guindastes portuários: dados e scripts},
+  version = {0.1},
+  year = {2026},
+  month = {9},
+  url = {https://github.com/aluna/minha-pesquisa},
+}
+
+Referência (padrão ABNT para software, conferir com a biblioteca):
+EXEMPLO, A. Manutenção preditiva em guindastes portuários: dados e scripts.
+Versão 0.1. [S. l.], 2026. Disponível em: https://github.com/aluna/minha-pesquisa.
+Acesso em: (data).</pre></div>
+      </div>
+      <div>
+        <div class="tw"><table><thead><tr><th style="width:190px">Argumento</th><th>Uso</th></tr></thead><tbody>
+          <tr><td><code>--titulo</code> · <code>--autores</code></td><td>Obrigatórios; autores como «Sobrenome, Nome; Sobrenome, Nome» — cada um vira <code>family-names</code>/<code>given-names</code></td></tr>
+          <tr><td><code>--versao</code> · <code>--data</code></td><td>A versão citada (a mesma da tag e da release) e a data de lançamento (AAAA-MM-DD)</td></tr>
+          <tr><td><code>--doi</code> · <code>--url</code> · <code>--licenca</code> · <code>--orcid</code></td><td>Opcionais; o DOI entra depois da primeira release no Zenodo</td></tr>
+          <tr><td><code>--forcar</code></td><td>O script recusa sobrescrever um <code>CITATION.cff</code> existente sem esta opção</td></tr>
+        </tbody></table></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>A referência ABNT impressa é um ponto de partida «para conferir com a biblioteca»: a NBR 6023 para software tem detalhes (local, «[S. l.]», data de acesso) que a sua biblioteca confirma. O BibTeX vai para o <code>.bib</code> de quem citar o seu repositório — é o mesmo que o botão «Cite this repository» exporta.</p></div>
+        <div class="note"><span class="blabel">Manual irmão</span><p>Como citar software e dados no texto e nas referências é assunto do <a href="https://zotero.mirandastech.com.br/">manual de Zotero</a> (o Zotero lê o <code>CITATION.cff</code>) e do <a href="https://latex.mirandastech.com.br/">manual de LaTeX</a> (o <code>.bib</code>).</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s42" data-title="salvar_versao.sh">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>3 de 10 · demonstração de 09/09/2026 (Figura 14) · bash + git</span></div>
+    <h2 class="rv"><code>salvar_versao.sh</code>: <code>git add -A</code>, o resumo do que entra, o commit e a tag anotada num comando — e o push impresso, não executado</h2>
+    <div class="two rv">
+      <div>
+        <div class="code"><div class="code-head">terminal — o comando da demonstração (Figura 14) e a saída que ele imprimiu</div><pre>bash scripts/salvar_versao.sh "Licença e arquivo de citação" --tag v0.2 "Repositório pronto para publicar"
+Mudanças que entram nesta versão:
+ CITATION.cff |  10 ++
+ LICENSE      | 396 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 406 insertions(+)
+
+commit ce3e655 · 2026-09-09 · Licença e arquivo de citação
+tag v0.2 criada: Repositório pronto para publicar
+sem remoto ainda: crie o repositório no GitHub e rode  git remote add origin &lt;url&gt;  e  git push -u origin main</pre></div>
+        <div class="code"><div class="code-head">terminal — uso no dia a dia</div><pre>bash scripts/salvar_versao.sh "Capítulo 3: resultados da busca"          # só o commit
+bash scripts/salvar_versao.sh "Versão da defesa" --tag v1.0 "Versão entregue à banca"   # commit + tag anotada
+git push --follow-tags                                                       # o script imprime este comando; você decide rodar</pre></div>
+      </div>
+      <div>
+        <div class="flow">
+          <div class="node"><span class="nn">1</span><span class="nt"><code>git add -A</code></span><span class="nd">Adiciona tudo o que o <code>.gitignore</code> não exclui</span></div>
+          <div class="node"><span class="nn">2</span><span class="nt">Mostra o <code>--stat</code></span><span class="nd">A lista de arquivos e linhas que entram: leia antes de continuar</span></div>
+          <div class="node gate"><span class="nn">3</span><span class="nt">Recusa &gt; 100 MiB</span><span class="nd">Um arquivo acima do bloqueio do GitHub interrompe o script antes do commit</span></div>
+          <div class="node"><span class="nn">4</span><span class="nt">Commit e tag</span><span class="nd">O commit com a mensagem; com <code>--tag</code>, a tag anotada (<code>-a -m</code>) com a descrição</span></div>
+          <div class="node"><span class="nn">5</span><span class="nt">Imprime o push</span><span class="nd"><code>git push --follow-tags</code> — ou orienta a criar o remoto, como na demonstração</span></div>
+        </div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>O script não faz push: enviar é decisão sua, depois do <code>checar_repo.py</code>. A tag só quando houver um marco — a mensagem da tag («Versão entregue à banca») é o que aparece no GitHub ao criar a release com «Escolher uma marca» (Parte 4).</p></div>
+        <div class="note"><span class="blabel">Sem bash</span><p>O script é bash; onde não houver um terminal bash, troque pelo equivalente manual:<code>git add -A</code>, <code>git diff --staged --stat</code>, <code>git commit -m</code>, <code>git tag -a … -m</code>.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide alt" id="s43" data-title="Tudo num só plugin">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>4 de 10</span></div>
+    <h2 class="rv">Tudo num só plugin: a skill <code>git-github-pesquisadores</code> audita e explica; o aluno cria o repositório, a release e o DOI</h2>
+    <div class="two rv">
+      <div>
+        <p class="lead">O <a href="https://plugin.mirandastech.com.br/">plugin Pesquisa MirandasTech</a> (para Claude Code e Codex) coloca os papéis dos manuais dentro do assistente, com um estado único (<code>PROGRESSO.md</code>) e um gerente — o Pesquisador — que só fecha uma fase com evidência. O <code>iniciar_projeto.py</code> do plugin já roda o <code>git init</code> e deixa a pasta <code>dados_FORA_DO_GIT/</code> fora do versionamento. A skill <code>git-github-pesquisadores</code> segue este manual: roda o <code>checar_repo.py</code>, explica cada BLOQUEIO e AVISO, gera o <code>CITATION.cff</code> e prepara a versão — mas quem cria o repositório no GitHub, publica a release e liga o Zenodo é o aluno, na própria conta.</p>
+        <div class="tw"><table><thead><tr><th style="width:190px">Papel</th><th>O que faz com este manual</th><th style="width:130px">Slides</th></tr></thead><tbody>
+          <tr><td><b>Pesquisador</b></td><td>Confere que o repositório existe, que o <code>checar_repo.py</code> dá zero bloqueios, que há README, LICENSE e <code>CITATION.cff</code>, e que a versão entregue tem tag</td><td>Partes 2, 4 e 5</td></tr>
+          <tr><td><b>Skill git-github-pesquisadores</b></td><td>Explica os comandos, lê a saída do Git, monta o <code>.gitignore</code>, roda os três scripts, orienta a release e o DOI</td><td>Partes 2 a 5</td></tr>
+          <tr><td><b>Bibliotecário</b></td><td>Confere a referência ABNT do software e importa o <code>CITATION.cff</code> no Zotero</td><td>Parte 5</td></tr>
+          <tr><td><b>Orientador (uso de IA)</b></td><td>Declara o uso do assistente no repositório e no texto</td><td>Último slide</td></tr>
+        </tbody></table></div>
+      </div>
+      <div>
+        <div class="code"><div class="code-head">Claude Code — pedidos na pasta do projeto (o plugin lê PROGRESSO.md)</div><pre>Pesquisador, onde paramos?
+Audite o repositório com o checar_repo.py e me explique cada aviso.
+Gere o CITATION.cff com os autores do projeto e mostre a referência ABNT.
+Salve a versão «Capítulo 3: resultados» e me diga se devo fazer push.
+O que falta para pedir o DOI no Zenodo?
+/pesquisa:status
+/pesquisa:proxima</pre></div>
+        <div class="rule-box"><span class="blabel">Regra</span><p>O agente nunca faz push, nunca cria repositório na conta do aluno e nunca toca em credencial: ele audita, explica e prepara. Criar o repositório, publicar a release e autorizar o Zenodo são cliques do aluno, logado na própria conta — como neste manual, que não fez login em nenhum serviço.</p></div>
+        <div class="note"><span class="blabel">Onde cada manual entra</span><p><a href="https://metodologia.mirandastech.com.br/">Metodologia</a> decide o projeto; <a href="https://busca.mirandastech.com.br/">Busca</a> e <a href="https://prisma.mirandastech.com.br/">PRISMA</a> produzem o conteúdo; <a href="https://zotero.mirandastech.com.br/">Zotero</a> guarda as referências; <a href="https://latex.mirandastech.com.br/">LaTeX</a> escreve o texto; este manual versiona e publica; <a href="https://manual.mirandastech.com.br/">Uso de IA</a> declara; o <a href="https://plugin.mirandastech.com.br/">plugin</a> mantém a ordem. Hub: <a href="https://www.mirandastech.com.br/pesquisa">mirandastech.com.br/pesquisa</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s44" data-title="Erros comuns">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>5 de 10</span></div>
+    <h2 class="rv">Erros comuns — como aparecem e como corrigir</h2>
+    <div class="tw rv"><table><thead><tr><th>Erro</th><th>Como aparece</th><th>Causa</th><th style="width:280px">Correção</th></tr></thead><tbody>
+      <tr><td>Segredo no histórico</td><td><code>.env</code>, token ou chave num commit — mesmo que apagado depois</td><td><code>git add -A</code> antes do <code>.gitignore</code></td><td><span class="pill p-stop">está vazado: trocar a credencial; git rm --cached; <span class="gterm" tabindex="0" data-t=".gitignore" data-d="Arquivo na raiz com os padrões do que o Git não deve rastrear; modelos em github.com/github/gitignore.">.gitignore</span></span></td></tr>
+      <tr><td>Dado pessoal em repositório privado</td><td>CPF, nome, e-mail de participante num <code>.csv</code> «só para mim»</td><td>Confundir privado com anonimizado (LGPD)</td><td><span class="pill p-stop">tirar do Git; dados_FORA_DO_GIT/; só o derivado anonimizado</span></td></tr>
+      <tr><td>Arquivo acima de 100 MiB</td><td>Push recusado pelo GitHub</td><td>Vídeo, banco de dados ou modelo commitado</td><td><span class="pill p-amber">tirar do histórico; repositório de dados ou Git LFS</span></td></tr>
+      <tr><td>Commit gigante «tudo»</td><td>Um commit «atualizações» com 40 arquivos</td><td>Semanas sem commit</td><td><span class="pill p-blue">commit por sessão e por assunto; salvar_versao.sh</span></td></tr>
+      <tr><td>Sem licença</td><td>Repositório público que ninguém pode reutilizar; Zenodo sem DOI</td><td>Achou que público bastava</td><td><span class="pill p-blue">LICENSE de choosealicense.com</span></td></tr>
+      <tr><td>Tag sem mensagem</td><td>Tag leve, sem autor, data nem descrição</td><td><code>git tag v1</code> sem <code>-a -m</code></td><td><span class="pill p-blue">git tag -a vX -m "…"; push --follow-tags</span></td></tr>
+      <tr><td><em>Force push</em></td><td><code>git push --force</code> reescreve o remoto; o commit do colega some</td><td>Tentativa de «consertar» o histórico</td><td><span class="pill p-stop">nunca em branch compartilhado; revert em vez de reset</span></td></tr>
+      <tr><td><code>.bib</code> ou PDF de bases pagas</td><td>Exportação completa da Web of Science, PDFs de artigos, no repositório público</td><td>Dados licenciados tratados como «meus»</td><td><span class="pill p-stop">fora do Git; só a estratégia de busca e os resultados agregados</span></td></tr>
+      <tr><td>Nome e e-mail errados nos commits</td><td>«usuario@notebook» como autor no GitHub</td><td><code>user.name</code>/<code>user.email</code> não configurados</td><td><span class="pill p-blue">git config --global (slide «Instalar e configurar»)</span></td></tr>
+      <tr><td>Marcador de conflito no arquivo</td><td>O LaTeX não compila; <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> no meio do texto</td><td>Commit feito antes de resolver o conflito</td><td><span class="pill p-amber">resolver, apagar os marcadores, add, commit</span></td></tr>
+      <tr><td>Release sem <span class="gterm" tabindex="0" data-t="CITATION.cff" data-d="Arquivo no Citation File Format (1.2.0) que diz como citar o repositório; ativa o botão «Cite this repository».">CITATION.cff</span></td><td>Zenodo com metadados incompletos; sem «Cite this repository»</td><td>Arquivo criado depois da release</td><td><span class="pill p-blue">CITATION.cff antes; nova release com o DOI no arquivo</span></td></tr>
+      <tr><td>Backup «só nesta máquina»</td><td>AVISO do checar_repo.py; notebook roubado = projeto perdido</td><td>Nunca fez push</td><td><span class="pill p-amber">remoto e git push ao fim de cada sessão</span></td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<section class="slide alt" id="s45" data-title="Checklist final">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>6 de 10</span></div>
+    <h2 class="rv">Checklist final: antes de publicar o repositório e pedir o DOI</h2>
+    <p class="lead rv">Marque conforme concluir. O estado fica salvo neste navegador — não é compartilhado nem enviado a lugar nenhum.</p>
+    <div class="check rv" id="checklist">
+      <div class="check-item"><input type="checkbox" id="c01"><label for="c01"><b>Git</b>Instalado (<code>git --version</code>); <code>user.name</code> e <code>user.email</code> configurados com o nome que assina os artigos</label></div>
+      <div class="check-item"><input type="checkbox" id="c02"><label for="c02"><b>Repositório</b>Um por projeto, criado com <code>git init -b main</code>; primeiro commit com README e <code>.gitignore</code></label></div>
+      <div class="check-item"><input type="checkbox" id="c03"><label for="c03"><b>Fora do Git</b>Dados pessoais, arquivos licenciados, segredos e binários pesados em <code>dados_FORA_DO_GIT/</code> ou no <code>.gitignore</code>; nenhum arquivo acima de 100 MiB</label></div>
+      <div class="check-item"><input type="checkbox" id="c04"><label for="c04"><b>Commits</b>Pequenos, por sessão e por assunto, com mensagem que diga o que mudou; <code>git status</code> antes de cada um</label></div>
+      <div class="check-item"><input type="checkbox" id="c05"><label for="c05"><b>Tags</b>Uma tag anotada (<code>-a -m</code>) por marco: qualificação, submissão, defesa</label></div>
+      <div class="check-item"><input type="checkbox" id="c06"><label for="c06"><b>Remoto</b>Repositório no GitHub (ou GitLab); <code>git push --follow-tags</code> ao fim de cada sessão; <code>checar_repo.py</code> sem o aviso de remoto</label></div>
+      <div class="check-item"><input type="checkbox" id="c07"><label for="c07"><b>Auditoria</b><code>checar_repo.py</code> com 0 bloqueios antes de cada push; se um segredo entrou, a credencial foi trocada</label></div>
+      <div class="check-item"><input type="checkbox" id="c08"><label for="c08"><b>README</b>O que faz, por que é útil, como reproduzir, onde estão os dados (e por que não estão aqui), quem mantém</label></div>
+      <div class="check-item"><input type="checkbox" id="c09"><label for="c09"><b>Licença</b>Arquivo <code>LICENSE</code> na raiz (MIT, GPLv3 ou Apache 2.0 para código; CC BY 4.0 para dados e texto), escolhida com o programa</label></div>
+      <div class="check-item"><input type="checkbox" id="c10"><label for="c10"><b>Citação</b><code>CITATION.cff</code> 1.2.0 na raiz (cffinit ou <code>citacao_cff.py</code>); botão «Cite this repository» visível; referência ABNT conferida com a biblioteca</label></div>
+      <div class="check-item"><input type="checkbox" id="c11"><label for="c11"><b>Release e DOI</b>Repositório público com licença, ligado ao Zenodo («Ativado»); release publicada; DOI copiado para o <code>CITATION.cff</code>, o README e o texto</label></div>
+      <div class="check-item"><input type="checkbox" id="c12"><label for="c12"><b>IA declarada</b>Uso do assistente no repositório (README ou arquivo próprio) e no texto, conforme o manual de Uso de IA</label></div>
+      <div class="check-foot"><span id="check-status">0 de 12</span><button type="button" id="check-reset">limpar</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s46" data-title="Glossário">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>7 de 10</span></div>
+    <h2 class="rv">Glossário</h2>
+    <p class="lead rv">Tudo que aparece no manual sem ser explicado no próprio slide.</p>
+    <div class="gl4 rv"><div><h4 style="margin-top:0">Git</h4><dl class="gl"><dt>Repositório</dt><dd>A pasta do projeto com a pasta oculta <code>.git/</code>, onde o Git guarda todo o histórico; <code>git init</code> o cria.</dd><dt>Commit</dt><dd>Uma versão registrada do projeto: autor, data, mensagem e o conteúdo dos arquivos; identificado por um código como <code>3b95655</code>.</dd><dt>Staging area (área de preparação)</dt><dd>O que o próximo commit vai incluir; <code>git add</code> põe, <code>git restore --staged</code> tira.</dd><dt>HEAD</dt><dd>O commit em que você está agora — normalmente o último do branch atual; aparece em <code>git log --decorate</code>.</dd><dt>Branch</dt><dd>Linha de desenvolvimento paralela; <code>main</code> é a principal; <code>git switch -c</code> cria outra.</dd><dt>Merge</dt><dd>Combinar os commits de um branch em outro; «fast-forward» quando o destino só precisa avançar.</dd><dt>Fast-forward</dt><dd><em>Merge</em> sem commit novo: o branch de destino não mudou, então só avança até o commit do outro.</dd><dt>Conflito</dt><dd>Duas versões mudaram a mesma linha; o Git marca o trecho com <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> e espera uma pessoa escolher.</dd><dt>Tag</dt><dd>Nome fixo dado a um commit (<code>v0.1-qualificacao</code>); a tag anotada (<code>-a -m</code>) guarda autor, data e mensagem.</dd><dt>Remoto</dt><dd>Cópia do repositório num servidor (GitHub, GitLab); o primeiro chama-se <code>origin</code> por convenção.</dd><dt>Push · pull · clone</dt><dd><code>push</code> envia commits ao remoto; <code>pull</code> traz os do remoto; <code>clone</code> cria um repositório local a partir de um remoto.</dd><dt>Bare repository</dt><dd>Repositório só com o histórico, sem arquivos de trabalho — é o que um servidor guarda; o «remoto» da demonstração (Figura 14) é um <em>bare</em> local.</dd><dt>.gitignore</dt><dd>Arquivo na raiz com os padrões do que o Git não deve rastrear; modelos em github.com/github/gitignore.</dd><dt>Git LFS</dt><dd>Large File Storage: guarda arquivos grandes fora do histórico e deixa um ponteiro de texto no Git; 10 GiB no GitHub Free.</dd></dl></div><div><h4 style="margin-top:0">GitHub, publicação e citação</h4><dl class="gl"><dt>Fork</dt><dd>Cópia de um repositório de outra pessoa na sua conta, para propor mudanças por pull request.</dd><dt>Pull request</dt><dd>Pedido para incorporar os commits de um branch a outro, com revisão e discussão; «solicitação de pull» na interface em português.</dd><dt>Issue</dt><dd>Item de acompanhamento no repositório: tarefa, dúvida, erro; numerada, com comentários e responsável.</dd><dt>CI / GitHub Actions</dt><dd>Integração contínua: rodar conferências e testes a cada push; no GitHub, por arquivos YAML em <code>.github/workflows/</code>.</dd><dt>GitHub Pages</dt><dd>Hospedagem gratuita de site estático a partir de um repositório público (<code>https://&lt;owner&gt;.github.io/&lt;repo&gt;</code>).</dd><dt>Codespaces</dt><dd>Ambiente de desenvolvimento na nuvem, pelo navegador ou VS Code; 120 horas-núcleo e 15 GB por mês no Free.</dd><dt>GitHub CLI (gh)</dt><dd>O GitHub no terminal: repositórios, issues, pull requests, releases; v2.100.0.</dd><dt>Release</dt><dd>Uma tag publicada no GitHub com título, notas e anexos; traz ZIP e tar.gz do código; é o que o Zenodo arquiva.</dd><dt>README</dt><dd>Arquivo Markdown na raiz que o GitHub renderiza na página do repositório: o que é, como usar, como citar.</dd><dt>Licença</dt><dd>Os termos de reutilização (MIT, GPLv3, Apache 2.0, CC BY 4.0) num arquivo <code>LICENSE</code>; sem ela ninguém pode reutilizar legalmente.</dd><dt>CITATION.cff</dt><dd>Arquivo no Citation File Format (1.2.0) que diz como citar o repositório; ativa o botão «Cite this repository».</dd><dt>DOI</dt><dd>Digital Object Identifier: identificador permanente; para código, emitido pelo Zenodo a cada release.</dd><dt>Zenodo</dt><dd>Repositório aberto que arquiva releases do GitHub e emite DOIs; lê o <code>CITATION.cff</code> para os metadados.</dd><dt>OSF</dt><dd>Open Science Framework: plataforma de projetos e pré-registro; o add-on GitHub mostra o repositório na seção «Files».</dd><dt>Overleaf</dt><dd>Editor LaTeX on-line; a integração Git e o GitHub Synchronization são recursos premium.</dd></dl></div></div>
+  </div>
+</section>
+
+<section class="slide alt" id="s47" data-title="Referências (1 de 2)">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>8 de 10 · fontes conferidas em 09/09/2026</span></div>
+    <h2 class="rv">Referências (1 de 2): a evidência, os guias e os livros</h2>
+    <ol class="refs rv" start="1">
+      <li><span class="rt">RAM, K. Git can facilitate greater reproducibility and increased transparency in science. <em>Source Code for Biology and Medicine</em>, v. 8, n. 7, 2013.</span><a href="https://doi.org/10.1186/1751-0473-8-7">doi.org/10.1186/1751-0473-8-7</a></li>
+      <li><span class="rt">PEREZ-RIVEROL, Y.; GATTO, L.; WANG, R.; SACHSENBERG, T. et al. Ten Simple Rules for Taking Advantage of Git and GitHub. <em>PLOS Computational Biology</em>, v. 12, n. 7, e1004947, 2016.</span><a href="https://doi.org/10.1371/journal.pcbi.1004947">doi.org/10.1371/journal.pcbi.1004947</a></li>
+      <li><span class="rt">BLISCHAK, J. D.; DAVENPORT, E. R.; WILSON, G. A Quick Introduction to Version Control with Git and GitHub. <em>PLOS Computational Biology</em>, v. 12, n. 1, e1004668, 2016.</span><a href="https://doi.org/10.1371/journal.pcbi.1004668">doi.org/10.1371/journal.pcbi.1004668</a></li>
+      <li><span class="rt">WILSON, G.; BRYAN, J.; CRANSTON, K.; KITZES, J. et al. Good enough practices in scientific computing. <em>PLOS Computational Biology</em>, v. 13, n. 6, e1005510, 2017.</span><a href="https://doi.org/10.1371/journal.pcbi.1005510">doi.org/10.1371/journal.pcbi.1005510</a></li>
+      <li><span class="rt">THE TURING WAY COMMUNITY; SCRIBERIA. <em>The Turing Way: A handbook for reproducible, ethical and collaborative research</em>. Zenodo, 2024. CC BY 4.0. Capítulo «Version Control».</span><a href="https://doi.org/10.5281/zenodo.3332807">doi.org/10.5281/zenodo.3332807</a> <a href="https://book.the-turing-way.org/">book.the-turing-way.org</a></li>
+      <li><span class="rt">SOFTWARE CARPENTRY. <em>Version Control with Git</em>. 14 episódios. CC BY 4.0. Acesso em 9 set. 2026.</span><a href="https://swcarpentry.github.io/git-novice/">swcarpentry.github.io/git-novice</a></li>
+      <li><span class="rt">CHACON, S.; STRAUB, B. <em>Pro Git</em>. 2. ed. Apress, 2014. Tradução completa para o português do Brasil; CC BY-NC-SA 3.0.</span><a href="https://git-scm.com/book/pt-br/v2">git-scm.com/book/pt-br/v2</a></li>
+      <li><span class="rt">GIT. <em>About</em>; <em>Downloads</em> (versão 2.55.0). git-scm.com. Acesso em 9 set. 2026.</span><a href="https://git-scm.com/about">git-scm.com/about</a> <a href="https://git-scm.com/install">git-scm.com/install</a></li>
+      <li><span class="rt">GIT LFS. <em>Git Large File Storage</em> (v3.8.0, 28 ago. 2026). Acesso em 9 set. 2026.</span><a href="https://git-lfs.com/">git-lfs.com</a></li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" id="s48" data-title="Referências (2 de 2)">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento<span>9 de 10 · fontes conferidas em 09/09/2026</span></div>
+    <h2 class="rv">Referências (2 de 2): documentação do GitHub, licenças, Citation File Format, Zenodo, Overleaf, OSF, GitLab e ferramentas</h2>
+    <ol class="refs rv" start="10">
+      <li><span class="rt">GITHUB. <em>GitHub Docs</em> (pt): «Olá, Mundo»; «Criar um repositório»; «Ignorar arquivos»; «Sobre arquivos grandes no GitHub»; «Sobre o arquivo README do repositório»; «Gerenciar versões em repositórios»; «Sobre os arquivos de CITATION»; «Referenciar e citar conteúdo»; «O que é o GitHub Pages?»; «Solicitações de pull»; «Sobre problemas». Acesso em 9 set. 2026.</span><a href="https://docs.github.com/pt">docs.github.com/pt</a></li>
+      <li><span class="rt">GITHUB. <em>Pricing</em>; <em>Student Developer Pack</em>; <em>GitHub Desktop</em> (3.6.5); <em>GitHub CLI</em> (v2.100.0); <em>Codespaces</em>; <em>gitignore templates</em>. Acesso em 9 set. 2026.</span><a href="https://github.com/pricing">github.com/pricing</a> <a href="https://education.github.com/pack">education.github.com/pack</a> <a href="https://github.com/apps/desktop">github.com/apps/desktop</a> <a href="https://cli.github.com/">cli.github.com</a> <a href="https://github.com/github/gitignore">github.com/github/gitignore</a></li>
+      <li><span class="rt">GITHUB. <em>Choose an open source license</em>. CC BY. Acesso em 9 set. 2026.</span><a href="https://choosealicense.com/">choosealicense.com</a></li>
+      <li><span class="rt">CITATION FILE FORMAT. <em>Citation File Format (CFF)</em>, versão 1.2.0; <em>cffinit</em>; <em>cff-converter-python</em>. Acesso em 9 set. 2026.</span><a href="https://citation-file-format.github.io/">citation-file-format.github.io</a></li>
+      <li><span class="rt">ZENODO. <em>Enable a repository</em> (GitHub integration). help.zenodo.org. Acesso em 9 set. 2026.</span><a href="https://help.zenodo.org/">help.zenodo.org</a> <a href="https://zenodo.org/">zenodo.org</a></li>
+      <li><span class="rt">OVERLEAF. <em>Git integration and GitHub synchronization</em>. docs.overleaf.com. Acesso em 9 set. 2026.</span><a href="https://docs.overleaf.com/">docs.overleaf.com</a></li>
+      <li><span class="rt">CENTER FOR OPEN SCIENCE. <em>Connect GitHub to a project</em>. help.osf.io. Acesso em 9 set. 2026.</span><a href="https://help.osf.io/">help.osf.io</a></li>
+      <li><span class="rt">GITLAB. <em>Preços</em> (pt). Acesso em 9 set. 2026.</span><a href="https://about.gitlab.com/pricing/">about.gitlab.com/pricing</a></li>
+      <li><span class="rt">MICROSOFT. <em>Source control in VS Code</em>. code.visualstudio.com. Acesso em 9 set. 2026.</span><a href="https://code.visualstudio.com/docs/sourcecontrol/overview">code.visualstudio.com/docs/sourcecontrol/overview</a></li>
+    </ol>
+    <div class="note rv"><span class="blabel">Sobre as datas</span><p>Versões (Git 2.55.0, Git LFS v3.8.0, GitHub Desktop 3.6.5, GitHub CLI v2.100.0, CFF 1.2.0), preços em dólar, limites e nomes de botão foram lidos nas páginas acima em 09/09/2026 e mudam sem aviso. Não há preço em reais, número de usuários do GitHub nem limite de tamanho do Zenodo neste manual porque não foram conferidos nessa data.</p></div>
+  </div>
+</section>
+
+<section class="slide alt" id="s49" data-title="Como citar, uso de IA e licença">
+  <div class="inner">
+    <div class="kicker-part rv">Scripts e fechamento · último slide<span>10 de 10</span></div>
+    <h2 class="rv">Como citar este manual, declaração de uso de IA e licença</h2>
+    <div class="two rv">
+      <div>
+        <div class="case"><span class="blabel">Como citar</span><p>MATIAS, J. P. M. <em>Git e GitHub para pesquisadores: passo a passo.</em> MirandasTech, v1.0, set. 2026. CC BY 4.0.</p><span class="src">Este manual: <a href="https://git.mirandastech.com.br/">git.mirandastech.com.br</a> (PDF em <a href="https://git.mirandastech.com.br/manual.pdf">/manual.pdf</a>). Manuais irmãos: <a href="https://prisma.mirandastech.com.br/">prisma.mirandastech.com.br</a> · <a href="https://busca.mirandastech.com.br/">busca.mirandastech.com.br</a> · <a href="https://latex.mirandastech.com.br/">latex.mirandastech.com.br</a> · <a href="https://zotero.mirandastech.com.br/">zotero.mirandastech.com.br</a> · <a href="https://metodologia.mirandastech.com.br/">metodologia.mirandastech.com.br</a> · <a href="https://notebook.mirandastech.com.br/">notebook.mirandastech.com.br</a> · <a href="https://manual.mirandastech.com.br/">manual.mirandastech.com.br</a> · <a href="https://plugin.mirandastech.com.br/">plugin.mirandastech.com.br</a> · hub: <a href="https://www.mirandastech.com.br/pesquisa">mirandastech.com.br/pesquisa</a></span></div>
+        <div class="rule-box"><span class="blabel">Licença</span><p>Conteúdo, capturas e os scripts <code>checar_repo.py</code>, <code>citacao_cff.py</code> e <code>salvar_versao.sh</code>: CC BY 4.0 — use, copie, adapte e redistribua com atribuição. O Git é distribuído sob a GPLv2; o <em>Pro Git</em> sob CC BY-NC-SA 3.0; o <em>The Turing Way</em> e o Software Carpentry sob CC BY 4.0; o GitHub Desktop sob MIT. GitHub, Git, GitLab, Zenodo, OSF, Overleaf, Microsoft e as demais ferramentas e serviços citados são marcas de terceiros, sem vínculo nem endosso deste manual.</p></div>
+      </div>
+      <div>
+        <div class="note"><span class="blabel">Declaração de uso de IA</span><p>Este manual foi escrito com assistência de IA (Claude, Anthropic) na estruturação, na redação, na automação das capturas de tela e na execução dos scripts, sob as regras do manual de Uso de IA na pesquisa científica. Todos os fatos, números, nomes de botões, preços, limites, versões e referências foram conferidos nas fontes indicadas em 09/09/2026. Nenhuma captura foi feita com login; nenhum repositório foi criado na conta do autor para a demonstração — o «remoto» das figuras é um repositório <em>bare</em> local. Decisões de conteúdo, seleção das fontes e responsabilidade pelo texto são do autor.</p></div>
+        <div class="colophon" style="margin-top:12px;font-size:11px">Sem garantia: interfaces, planos, preços, limites e versões mudam; cada fato traz a data em que foi verificado. Quando a sua tela divergir, vale a tela. A escolha da licença, o que pode ou não ser publicado (dados de participantes, materiais licenciados, resultados sob embargo), a citação do software no seu texto e a declaração de uso de IA da sua pesquisa são seus e seguem o seu programa, o seu orientador, a biblioteca da sua instituição e, quando houver, o comitê de ética.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<script>
+
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var tot = slides.length; document.getElementById('tot').textContent = tot; var ns = document.getElementById('nslides'); if (ns) ns.textContent = tot;
+  var cur = document.getElementById('cur'), prog = document.getElementById('prog');
+  var menu = document.getElementById('menu'), scrim = document.getElementById('scrim'), menubtn = document.getElementById('menubtn');
+
+  /* sumário gerado a partir dos slides */
+  var html = '', grp = '';
+  slides.forEach(function(s, i){
+    var t = s.getAttribute('data-title') || ('Slide ' + (i+1));
+    if (s.classList.contains('divider')) { html += '<div class="grp">' + t + '</div>'; return; }
+    if (s.classList.contains('cover')) { html += '<div class="grp">Início</div>'; }
+    html += '<a href="#' + s.id + '" data-i="' + i + '"><span class="n">' + String(i+1).padStart(2,'0') + '</span><span>' + t + '</span></a>';
+  });
+  document.getElementById('menulist').innerHTML = html;
+  document.getElementById('menuclose').addEventListener('click', function(){ toggleMenu(false); });
+  var links = Array.prototype.slice.call(menu.querySelectorAll('a'));
+  function toggleMenu(open){ menu.classList.toggle('open', open); scrim.classList.toggle('on', open); }
+  menubtn.addEventListener('click', function(){ toggleMenu(!menu.classList.contains('open')); });
+  scrim.addEventListener('click', function(){ toggleMenu(false); });
+  links.forEach(function(a){ a.addEventListener('click', function(){ toggleMenu(false); }); });
+
+  /* slide ativo: contador, progresso, revelação, sumário */
+  var active = 0;
+  function setActive(i){
+    active = i; cur.textContent = i + 1; prog.style.width = ((i+1)/tot*100) + '%';
+    links.forEach(function(a){ a.classList.toggle('on', +a.getAttribute('data-i') === i); });
+    var on = menu.querySelector('a.on'); if (on && menu.classList.contains('open')) on.scrollIntoView({block:'nearest'});
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    slides.forEach(function(s){ io.observe(s); });
+  } else { slides.forEach(function(s){ s.classList.add('in'); }); }
+  /* slide ativo = o que ocupa mais área visível */
+  var ticking = false;
+  function recompute(){
+    ticking = false; var vh = window.innerHeight, best = 0, bi = active;
+    slides.forEach(function(s, i){ var r = s.getBoundingClientRect(); var vis = Math.min(r.bottom, vh) - Math.max(r.top, 0); if (vis > best) { best = vis; bi = i; } });
+    if (bi !== active) setActive(bi);
+  }
+  window.addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(recompute); } }, { passive: true });
+  window.addEventListener('resize', recompute); recompute(); slides[0].classList.add('in');
+
+  /* ajuste de escala: cada slide cabe na tela (como num programa de apresentação) */
+  function fitAll(){
+    if (window.innerWidth <= 900) { slides.forEach(function(s){ var i = s.querySelector('.inner'); if (i) i.style.zoom = ''; s.classList.add('fit'); }); return; }
+    var avail = window.innerHeight - 52;
+    slides.forEach(function(s){
+      var inner = s.querySelector('.inner'); if (!inner || s.classList.contains('divider') || s.classList.contains('cover')) return;
+      inner.style.zoom = '1'; s.classList.remove('fit');
+      var need = inner.scrollHeight; if (need <= avail) { s.classList.add('fit'); return; }
+      var z = Math.max(0.75, avail / need); inner.style.zoom = z.toFixed(3);
+      if (inner.scrollHeight * z <= avail + 2) s.classList.add('fit');
+    });
+  }
+  window.addEventListener('resize', fitAll); window.addEventListener('load', fitAll); fitAll();
+  /* cards expansíveis abrem em janela sobreposta, sem mudar a altura do slide */
+  var modal = document.getElementById('modal'), mbody = document.getElementById('modal-body'), mtitle = document.getElementById('modal-title');
+  function closeModal(){ modal.classList.remove('on'); mbody.innerHTML = ''; }
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(ev){ if (ev.target === modal) closeModal(); });
+  document.querySelectorAll('details.more').forEach(function(d){
+    var s = d.querySelector('summary'), body = d.querySelector(':scope > div');
+    s.addEventListener('click', function(ev){
+      if (window.matchMedia('print').matches) return;
+      ev.preventDefault(); d.open = false;
+      mtitle.textContent = s.textContent.replace(/^detalhes\s*—\s*/i, '').trim() || 'detalhes';
+      mbody.innerHTML = body.innerHTML; modal.classList.add('on'); attachCopy(mbody);
+    });
+  });
+  /* botão de copiar em código, terminal e prompt */
+  function attachCopy(root){
+    root.querySelectorAll('.code, .term').forEach(function(box){
+      if (box.querySelector(':scope > .copy')) return;
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'copy'; b.textContent = 'copiar'; b.setAttribute('aria-label', 'Copiar conteúdo');
+      b.addEventListener('click', function(){
+        var pre = box.querySelector('pre'); var txt = pre ? pre.innerText : box.innerText;
+        function done(){ b.textContent = 'copiado ✓'; b.classList.add('ok'); setTimeout(function(){ b.textContent = 'copiar'; b.classList.remove('ok'); }, 1600); }
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(done, function(){ fallback(txt); done(); }); } else { fallback(txt); done(); }
+      });
+      box.appendChild(b);
+    });
+  }
+  function fallback(txt){ var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+  attachCopy(document);
+  /* popover do glossário */
+  var gpop = document.getElementById('gpop'), gcur = null;
+  function showPop(el){ gpop.innerHTML = '<b>' + el.getAttribute('data-t') + '</b>' + el.getAttribute('data-d'); gpop.classList.add('on');
+    var r = el.getBoundingClientRect(), pw = Math.min(340, window.innerWidth - 24); gpop.style.maxWidth = pw + 'px';
+    var left = Math.max(12, Math.min(r.left, window.innerWidth - pw - 12)); gpop.style.left = left + 'px';
+    var ph = gpop.offsetHeight; var top = r.bottom + 8; if (top + ph > window.innerHeight - 8) top = Math.max(8, r.top - ph - 8); gpop.style.top = top + 'px'; gcur = el; }
+  function hidePop(){ gpop.classList.remove('on'); gcur = null; }
+  document.querySelectorAll('.gterm').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ showPop(el); }); el.addEventListener('mouseleave', hidePop);
+    el.addEventListener('focus', function(){ showPop(el); }); el.addEventListener('blur', hidePop);
+    el.addEventListener('click', function(ev){ ev.stopPropagation(); if (gcur === el) hidePop(); else showPop(el); });
+  });
+  document.addEventListener('click', function(){ if (gcur) hidePop(); }); window.addEventListener('scroll', function(){ if (gcur) hidePop(); }, { passive: true });
+
+  function go(i){ i = Math.max(0, Math.min(tot-1, i)); window.scrollTo({ top: slides[i].offsetTop, behavior: 'smooth' }); }
+  document.getElementById('prev').addEventListener('click', function(){ go(active-1); });
+  document.getElementById('next').addEventListener('click', function(){ go(active+1); });
+  document.addEventListener('keydown', function(ev){
+    if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
+    if (ev.key === 'ArrowDown' || ev.key === 'PageDown' || ev.key === ' ' || ev.key === 'ArrowRight') { ev.preventDefault(); go(active+1); }
+    else if (ev.key === 'ArrowUp' || ev.key === 'PageUp' || ev.key === 'ArrowLeft') { ev.preventDefault(); go(active-1); }
+    else if (ev.key === 'Home') { go(0); } else if (ev.key === 'End') { go(tot-1); }
+    else if (ev.key === 'Escape') { toggleMenu(false); closeModal(); }
+  });
+
+  /* checklist — conveniência por leitor, só neste navegador */
+  var KEY = 'mirandastech-git-checklist-v1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checklist input[type=checkbox]'));
+  var status = document.getElementById('check-status');
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
+  function save(st){ try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){} }
+  function paint(){ var n = 0; boxes.forEach(function(b){ var it = b.closest('.check-item'); if (b.checked) { n++; it.classList.add('done'); } else { it.classList.remove('done'); } }); if (status) status.textContent = n + ' de ' + boxes.length; }
+  var st = load(); boxes.forEach(function(b){ b.checked = !!st[b.id]; b.addEventListener('change', function(){ var s = load(); s[b.id] = b.checked; save(s); paint(); }); }); paint();
+  var reset = document.getElementById('check-reset'); if (reset) reset.addEventListener('click', function(){ boxes.forEach(function(b){ b.checked = false; }); save({}); paint(); });
+})();
+</script>
+<script>
+(function(){
+  var lb = document.createElement('div'); lb.className = 'lightbox'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
+  lb.innerHTML = '<span class="lb-hint">clique fora ou Esc para fechar</span><button type="button" class="lb-close" aria-label="Fechar">×</button><figure style="margin:0;display:contents"><img alt=""><figcaption hidden></figcaption></figure>';
+  document.body.appendChild(lb);
+  var img = lb.querySelector('img'), cap = lb.querySelector('figcaption');
+  function open(src, alt, text){ img.src = src; img.alt = alt || ''; if (text) { cap.textContent = text; cap.hidden = false; } else { cap.hidden = true; } lb.classList.add('on'); document.body.style.overflow = 'hidden'; }
+  function close(){ lb.classList.remove('on'); img.removeAttribute('src'); document.body.style.overflow = ''; }
+  document.addEventListener('click', function(ev){
+    var t = ev.target;
+    if (t.tagName === 'IMG' && t.closest('.shot')) {
+      var fig = t.closest('figure'), fc = fig && fig.querySelector('figcaption');
+      open(t.currentSrc || t.src, t.alt, fc ? fc.textContent.replace(/\s+/g,' ').trim() : '');
+    }
+  });
+  lb.addEventListener('click', function(ev){ if (ev.target !== img) close(); });
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape' && lb.classList.contains('on')) close(); });
+})();
+</script>
